@@ -1,0 +1,79 @@
+$font-stack: sans-serif;
+$p-color: #cc7868;
+$white: #fff;
+$industry-span-color: #000;
+
+@import 'reset';
+
+html,
+body {
+  height: 100%;
+  overflow-y: hidden;
+  width: 100%;
+}
+
+body {
+  font: 10px sans-serif;
+}
+
+.p-intro {
+  background: $p-color;
+  color: $white;
+  font-size: 115%;
+  line-height: 1.25;
+  margin: 0px;
+  padding: 10px;
+  position: absolute;
+  top: 0px;
+}
+
+.arc {
+  -webkit-touch-callout: none;
+
+  path {
+    stroke: $white;
+  }
+
+  text {
+    fill: $white;
+  }
+}
+
+.text-div {
+  position: absolute;
+
+  .industry-text {
+    font-size: 2em;
+    margin: 0px;
+  }
+
+  .count-text,
+  .percent-text {
+    font-size: 1.5em;
+    margin: 3px 0px;
+  }
+}
+
+.hidden {
+  background: $p-color;
+  bottom: -95px;
+  color: $white;
+  font-size: 200%;
+  height: 60px;
+  left: 0px;
+  padding: 30px 0px 0px 15px;
+  position: absolute;
+  text-decoration: none;
+  transition: bottom .5s;
+  width: calc(100% - 15px);
+
+  span {
+    background: $industry-span-color;
+    font-size: 75%;
+    left: 0px;
+    padding: 2px 15px;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+  }
+}
