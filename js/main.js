@@ -1,45 +1,100 @@
-var width = document.documentElement.clientWidth,
-  height = document.documentElement.clientHeight,
-  radius = Math.min(width, height) / 2,
-  outerRadius = radius - 10,
-  innerRadius = radius - (radius/2.25),
-  textBoxHeight = 66;
+function setUp(){
+  var width = document.documentElement.clientWidth,
+    height = document.documentElement.clientHeight,
+    radius = Math.min(width, height) / 2,
+    outerRadius = radius - 10,
+    innerRadius = radius - (radius/2.25),
+    textBoxHeight = 66;
 
-var textDiv = document.createElement("div"),
-    industryText = document.createElement("p"),
-    countText = document.createElement("p"),
-    percentText = document.createElement("p");
+  var textDiv = document.createElement("div"),
+      industryText = document.createElement("p"),
+      countText = document.createElement("p"),
+      percentText = document.createElement("p");
 
-    textDiv.setAttribute("class","text-div");
-    industryText.setAttribute("class","industry-text");
-    countText.setAttribute("class","count-text");
-    percentText.setAttribute("class","percent-text");
+      textDiv.setAttribute("class","text-div");
+      industryText.setAttribute("class","industry-text");
+      countText.setAttribute("class","count-text");
+      percentText.setAttribute("class","percent-text");
 
-    textDiv.appendChild(industryText);
-    textDiv.appendChild(countText);
-    textDiv.appendChild(percentText);
+      textDiv.appendChild(industryText);
+      textDiv.appendChild(countText);
+      textDiv.appendChild(percentText);
 
-var color = d3.scale.ordinal()
-    .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
+  var color = d3.scale.ordinal()
+      .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56", "#d0743c", "#ff8c00"]);
 
-var arc = d3.svg.arc()
-    .outerRadius(outerRadius)
-    .innerRadius(innerRadius);
+  var arc = d3.svg.arc()
+      .outerRadius(outerRadius)
+      .innerRadius(innerRadius);
 
-var pie = d3.layout.pie()
-    .sort(null)
-    .value(function(d) { return d.percent; });
+  var pie = d3.layout.pie()
+      .sort(null)
+      .value(function(d) { return d.percent; });
 
-var svg = d3.select("body").append("svg")
-    .attr("width", width)
-    .attr("height", height)
-  .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+  var svg = d3.select("body").append("svg")
+      .attr("width", width)
+      .attr("height", height)
+    .append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+  useData();
+}
 
 //start json import and elements that need data
-d3.json("data/data.json", function(error, data){
-  if(error) return console.log(error);
+//d3.json("data/data.json", function(error, data){
+//  if(error) return console.log(error);
+data = [	
+	{
+		"industry":"Print",
+		"count":53,
+		"percent":37,
+		"article": 1
+	},
 
+	{
+		"industry":"Agency",
+		"count":21,
+		"percent":15,
+		"article": 1
+	},
+
+	{
+		"industry":"Consumer Products",
+		"count":22,
+		"percent":15,
+		"article": 0
+	},
+
+	{
+		"industry":"Publishing",
+		"count":13,
+		"percent":9,
+		"article": 1
+	},
+
+	{
+		"industry":"Vender",
+		"count":13,
+		"percent":9,
+		"article": 0
+	},
+
+	{
+		"industry":"Other",
+		"count":11,
+		"percent":7,
+		"article": 1
+	},
+
+	{
+		"industry":"Mobile/Software",
+		"count":8,
+		"percent":6,
+		"article": 0
+	}
+]
+
+function useData(){
   var g = svg.selectAll(".arc")
     .data(pie(data))
   .enter().append("g")
@@ -82,5 +137,6 @@ d3.json("data/data.json", function(error, data){
     textDiv.style.top = String(height/2 - textBoxHeight/2) + "px";
     textDiv.style.left = String(radius - innerRadius + 10) + "px";
   document.body.appendChild(textDiv);
-});
+}
+//});
 //end json function
