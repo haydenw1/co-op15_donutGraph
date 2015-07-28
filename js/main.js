@@ -1,5 +1,5 @@
 var donut = {
-  
+
   d3tools: [],
   elements: [],
   measurements: [],
@@ -33,10 +33,14 @@ var donut = {
       .outerRadius(donut.measurements.outerRadius)
       .innerRadius(donut.measurements.innerRadius);
 
+    donut.d3tools.secondaryArc = d3.svg.arc()
+      .outerRadius(donut.measurements.outerRadius + 10)
+      .innerRadius(donut.measurements.innerRadius);
+
     donut.d3tools.pie = d3.layout.pie()
       .sort(null)
-      .value(function(d) { 
-        return d.percent; 
+      .value(function(d) {
+        return d.percent;
       });
 
     donut.elements.gVis = d3.select("body")
@@ -50,7 +54,7 @@ var donut = {
   },
 
   useData: function(){
-    
+
     donut.elements.gVis.selectAll("path")
       .data(donut.d3tools.pie(donut.ringData))
       .enter()
@@ -80,9 +84,11 @@ var donut = {
     g.selectAll("path")
       .on("mouseover", function(d){
         console.log(this);
+        d3.select(this).attr("d", donut.d3tools.secondaryArc);
         donut.touchPath(d, this);
       })
       .on("mouseout", function(d){
+        d3.select(this).attr("d", donut.d3tools.arc);
         donut.leavePath(d, this);
       });
 
@@ -98,8 +104,8 @@ var donut = {
 
     d3.select(touched)
       .transition()
-        .style("fill", "white")
-        .style("opacity", .75);
+        .style("fill", "white");
+        //.style("opacity", 1);
 
     d3.select(".industry-text")
       .text(d.data.industry);
@@ -125,16 +131,16 @@ var donut = {
   leavePath: function(d, touched){
     d3.select(touched.parentNode.childNodes[1])
       .transition()
-        .text(function(d) { 
-          return d.data.percent + "%"; 
+        .text(function(d) {
+          return d.data.percent + "%";
         });
-    
+
     d3.select(touched)
       .transition()
-        .style("fill",function(d) {  
-          return donut.d3tools.color(donut.data.indexOf(d.data)); 
-        })
-        .style("opacity", 1);
+        .style("fill",function(d) {
+          return donut.d3tools.color(donut.data.indexOf(d.data));
+        });
+        //.style("opacity", 1);
 
     d3.select(".industry-text").text(null);
     d3.select(".count-text").text(null);
@@ -153,7 +159,7 @@ var donut = {
     }
   ],
 
-  data: [  
+  data: [
     {
       "industry":"Print",
       "count":53,

@@ -1,6 +1,6 @@
 $font-stack: sans-serif;
-$p-color: #cc7868;
-$white: #fff;
+$p-background-color:rgba(255, 255, 255, .65);
+$p-text-color: #333;
 $industry-span-color: #000;
 
 @import 'reset';
@@ -23,14 +23,14 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  -webkit-filter: grayscale(75%);
+  //-webkit-filter: grayscale(75%);
   z-index: -1;
 }
 
 .p-intro {
-  background: $p-color;
-  color: $white;
-  font-size: 115%;
+  background: $p-background-color;
+  color: $p-text-color;
+  font-size: 145%;
   line-height: 1.25;
   margin: 0px;
   padding: 10px;
@@ -46,14 +46,14 @@ body {
   }
 
   text {
-    fill: $white;
+    //fill: $white;
   }
 }
 
-.back-ring{
-  fill: #bbbbbc;
-  transform: translate(5px, 5px);
-}
+//.back-ring{
+  //fill: #bbbbbc;
+  //transform: translate(5px, 5px);
+//}
 
 .text-div {
   position: absolute;
@@ -75,12 +75,12 @@ body {
 }
 
 .hidden {
-  background: $p-color;
+  background: $p-background-color;
   bottom: -95px;
-  color: $white;
+  color: $p-text-color;
   font-size: 200%;
   height: 60px;
-  left: 0px;
+  left: 0;
   padding: 30px 0px 0px 15px;
   position: absolute;
   text-decoration: none;
