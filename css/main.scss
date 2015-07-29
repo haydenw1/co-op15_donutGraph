@@ -4,6 +4,7 @@ $p-text-color: #333;
 $industry-span-color: #000;
 
 @import 'reset';
+@import 'buttons';
 
 html,
 body {
@@ -68,7 +69,7 @@ body {
   color: white;
   font-size: 3em;
   margin: 0px;
-  padding: 5px 0px;
+  //padding: 5px 0px;
   position: absolute;
   text-align: center;
   text-shadow: 0px 2px 2px rgba(0,0,0,.5);
@@ -97,19 +98,21 @@ body {
 }
 
 .hidden {
-  background: $top-background-color;
-  bottom: -95px;
-  color: $p-text-color;
-  font-size: 200%;
-  height: 30px;
-  left: 0;
-  padding: 30px 0px 0px 15px;
+  background: rgba(255, 255, 255, 0.65);
+  bottom: -90px;
+  box-shadow: 0 3px 4px rgba(0,0,0,.40);
+  color: #333;
+  font-size: 160%;
+  height: 115px;
+  width: 115px;
+  border-radius: 100%;
+  left: 94px;
+  padding: 35px;
   position: absolute;
   text-decoration: none;
   transition: bottom .5s;
-  width: calc(100% - 15px);
 
-  span {
+  /*span {
     background: $industry-span-color;
     font-size: 75%;
     left: 0px;
@@ -117,7 +120,7 @@ body {
     pointer-events: none;
     position: absolute;
     top: 0;
-  }
+  }*/
 }
 
 .title{

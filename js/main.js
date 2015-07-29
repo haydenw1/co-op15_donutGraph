@@ -51,10 +51,10 @@ var donut = {
         .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.height / 2.25 + ")");
 
     donut.useData();
+    createButtons();
   },
 
   useData: function(){
-
     donut.elements.gVis.selectAll("path")
       .data(donut.d3tools.pie(donut.ringData))
       .enter()
@@ -73,8 +73,8 @@ var donut = {
     g.append("path")
       .attr("d", donut.d3tools.arc)
       .style("fill", function(d,i) { return donut.d3tools.color(i); });
-/*
-    g.append("text")
+
+    /*g.append("text")
       .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .style("text-anchor", "middle")
@@ -122,6 +122,10 @@ var donut = {
       .transition()
         .style("background", touched.style.fill);
 
+    d3.select(".industry-text")
+      .transition()
+        .style("padding", "5px 0px");
+
     if(d.data.article){
       document.getElementById('p-industry').innerHTML = d.data.industry;
       document.getElementById('hidden-link').style.bottom = "0px";
@@ -151,6 +155,10 @@ var donut = {
     d3.select(".color-background")
       .transition()
         .style("background", "#e5e5e5");
+
+    d3.select(".industry-text")
+      .transition()
+        .style("padding", "0px");
 
     document.getElementById('hidden-link').style.bottom = "-95px";
   },
