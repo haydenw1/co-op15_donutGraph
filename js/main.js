@@ -1,8 +1,8 @@
 var donut = {
 
-  d3tools: [],
-  elements: [],
-  measurements: [],
+  d3tools: {},
+  elements: {},
+  measurements: {},
 
   setUp: function(){
     donut.measurements.width = document.documentElement.clientWidth,
@@ -199,7 +199,7 @@ var donut = {
     },
 
     {
-      "industry":"Vender",
+      "industry":"Vendor",
       "count":13,
       "percent":9,
       "article": 0
