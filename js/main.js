@@ -12,22 +12,22 @@ var donut = {
     donut.measurements.innerRadius = donut.measurements.radius - (donut.measurements.radius/2.25),
     donut.measurements.textBoxHeight = 66;
 
-    donut.elements.div = document.createElement("div");
+    donut.elements.divMiddle = document.createElement("div");
     donut.elements.industry = document.createElement("p");
-    donut.elements.count = document.createElement("p");
-    donut.elements.percent = document.createElement("p");
+    donut.elements.percentNumber = document.createElement("p");
+    donut.elements.percentText = document.createElement("p");
 
-    donut.elements.div.setAttribute("class","text-div");
+    donut.elements.divMiddle.setAttribute("class","text-middle");
     donut.elements.industry.setAttribute("class","industry-text");
-    donut.elements.count.setAttribute("class","count-text");
-    donut.elements.percent.setAttribute("class","percent-text");
+    donut.elements.percentNumber.setAttribute("class","percent-number");
+    donut.elements.percentText.setAttribute("class","percent-text");
 
-    donut.elements.div.appendChild(donut.elements.industry);
-    donut.elements.div.appendChild(donut.elements.count);
-    donut.elements.div.appendChild(donut.elements.percent);
+    document.body.appendChild(donut.elements.industry);
+    donut.elements.divMiddle.appendChild(donut.elements.percentNumber);
+    donut.elements.divMiddle.appendChild(donut.elements.percentText);
 
     donut.d3tools.color = d3.scale.ordinal()
-      .range(["#002e6c", "#00adee", "#ff661b", "#025594", "#9fc600", "#be1e2d", "#333333"]);
+      .range(["#002e6c", "#00adee", "#ff661b", "#025594", "#9fc600", "#333333", "#be1e2d"]);
 
     donut.d3tools.arc = d3.svg.arc()
       .outerRadius(donut.measurements.outerRadius)
@@ -48,7 +48,7 @@ var donut = {
         .attr("width", donut.measurements.width)
         .attr("height", donut.measurements.height)
       .append("g")
-        .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.height / 2 + ")");
+        .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.height / 2.25 + ")");
 
     donut.useData();
   },
@@ -92,9 +92,11 @@ var donut = {
         donut.leavePath(d, this);
       });
 
-      donut.elements.div.style.top = String(donut.measurements.height/2 - donut.measurements.textBoxHeight/2) + "px";
-      donut.elements.div.style.left = String(donut.measurements.radius - donut.measurements.innerRadius + 10) + "px";
-      document.body.appendChild(donut.elements.div);
+      donut.elements.divMiddle.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 62) - (((donut.measurements.innerRadius * 2) - 62) / 2)) + "px";
+      donut.elements.divMiddle.style.left = String((donut.measurements.radius - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2)) + "px";
+      document.body.appendChild(donut.elements.divMiddle);
+
+      donut.elements.industry.style.top = String(donut.measurements.height/2.25 + donut.measurements.outerRadius + 20) + "px";
   },
 
   touchPath: function(d, touched){
@@ -110,11 +112,11 @@ var donut = {
     d3.select(".industry-text")
       .text(d.data.industry);
 
-    d3.select(".count-text")
-      .text(d.data.count + " students");
+    d3.select(".percent-number")
+      .text(d.data.percent + "%");
 
     d3.select(".percent-text")
-      .text("(" + d.data.percent + "% of co-op students)");
+      .text("of co-op students");
 
     d3.select(".color-background")
       .transition()
@@ -143,12 +145,12 @@ var donut = {
         //.style("opacity", 1);
 
     d3.select(".industry-text").text(null);
-    d3.select(".count-text").text(null);
+    d3.select(".percent-number").text(null);
     d3.select(".percent-text").text(null);
 
     d3.select(".color-background")
       .transition()
-        .style("background", "white");
+        .style("background", "#e5e5e5");
 
     document.getElementById('hidden-link').style.bottom = "-95px";
   },
