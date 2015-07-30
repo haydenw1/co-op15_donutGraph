@@ -4,10 +4,9 @@ body {
   padding: 0; }
 
 .button {
-  background: #e84a0c;
+  background: #666;
   border-radius: 100%;
   bottom: calc(2.5%);
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
   color: #fff;
   left: calc(8%);
   padding: calc(2%);
@@ -19,15 +18,7 @@ body {
   .button.help {
     left: calc(77%); }
   .button#active {
-    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.2) inset; }
-
-.button-container {
-  background-color: #bbbbbc;
-  bottom: 0px;
-  left: 0;
-  position: fixed;
-  width: 100%;
-  z-index: 5; }
+    background: #333; }
 
 html,
 body {
@@ -36,11 +27,12 @@ body {
   width: 100%; }
 
 body {
-  font: 10px sans-serif; }
+  font: 10px sans-serif;
+  background: #e5e5e5; }
 
 .top {
   background: rgba(255, 255, 255, 0.65);
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  border-bottom: 4px solid #333;
   padding: 10px;
   position: absolute;
   top: 0px; }
@@ -50,21 +42,21 @@ body {
     line-height: 1.25;
     margin: 0px; }
 
+/*
 .color-background {
-  background: #e5e5e5;
+
   bottom: 0;
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
-  z-index: -1; }
-
+  //-webkit-filter: grayscale(75%);
+  z-index: -1;
+}*/
 .arc {
   -webkit-touch-callout: none; }
 
 .industry-text {
-  background-color: #666;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   color: white;
   font-size: 3em;
   margin: 0px;
@@ -74,34 +66,31 @@ body {
   width: 100%; }
 
 .text-middle {
+  color: #333;
   position: absolute;
   pointer-events: none; }
   .text-middle .percent-number {
-    color: white;
-    font-size: 4em;
+    font-size: 5em;
     margin: 0px;
-    text-align: center;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5); }
+    text-align: center; }
   .text-middle .percent-text {
-    color: white;
     font-size: 1.5em;
     margin: 0px;
-    text-align: center;
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5); }
+    text-align: center; }
 
 .hidden {
-  background: rgba(255, 255, 255, 0.65);
-  bottom: -90px;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.4);
-  color: #333;
-  font-size: 160%;
-  height: 115px;
-  width: 115px;
+  bottom: -185px;
+  color: #fff;
+  font-size: 180%;
+  height: 135px;
+  width: 95px;
   border-radius: 100%;
   left: 94px;
-  padding: 35px;
+  padding: 25px 45px;
   position: absolute;
+  text-align: center;
   text-decoration: none;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   transition: bottom .5s;
   /*span {
     background: $industry-span-color;

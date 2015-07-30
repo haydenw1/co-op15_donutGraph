@@ -92,11 +92,11 @@ var donut = {
         donut.leavePath(d, this);
       });
 
-      donut.elements.divMiddle.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 62) - (((donut.measurements.innerRadius * 2) - 62) / 2)) + "px";
+      donut.elements.divMiddle.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) + "px";
       donut.elements.divMiddle.style.left = String((donut.measurements.radius - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2)) + "px";
       document.body.appendChild(donut.elements.divMiddle);
 
-      donut.elements.industry.style.top = String(donut.measurements.height/2.25 + donut.measurements.outerRadius + 20) + "px";
+      donut.elements.industry.style.top = String(donut.measurements.height/2.25 + donut.measurements.outerRadius + 30) + "px";
   },
 
   touchPath: function(d, touched){
@@ -104,31 +104,37 @@ var donut = {
       .transition()
         .text("");
 
-    d3.select(touched)
-      .transition()
-        .style("fill", "white");
+    //d3.select(touched)
+      //.transition()
+        //.style("fill", "yellow");
         //.style("opacity", 1);
 
     d3.select(".industry-text")
       .text(d.data.industry);
 
     d3.select(".percent-number")
-      .text(d.data.percent + "%");
+      .text(d.data.percent + "%")
+      //.transition()
+        //.style("color", touched.style.fill);
 
     d3.select(".percent-text")
-      .text("of co-op students");
+      .text("of co-op students")
+      //.transition()
+        //.style("color", touched.style.fill);
 
-    d3.select(".color-background")
-      .transition()
-        .style("background", touched.style.fill);
+    //d3.select(".color-background")
+      //.transition()
+        //.style("background", touched.style.fill);
 
     d3.select(".industry-text")
       .transition()
-        .style("padding", "5px 0px");
-
+        .style("padding", "10px 0px")
+        .style("background", touched.style.fill);
+      console.log(d.data.article);
     if(d.data.article){
-      document.getElementById('p-industry').innerHTML = d.data.industry;
-      document.getElementById('hidden-link').style.bottom = "0px";
+      //document.getElementsByClassName('p-industry')[0].innerHTML = d.data.industry;
+      document.getElementById('hidden-link').style.bottom = "-110px";
+      document.getElementById('hidden-link').style.background = touched.style.fill;
     }else{
       console.log("doesn't have an article");
     }
@@ -152,15 +158,15 @@ var donut = {
     d3.select(".percent-number").text(null);
     d3.select(".percent-text").text(null);
 
-    d3.select(".color-background")
+    /*d3.select(".color-background")
       .transition()
-        .style("background", "#e5e5e5");
+        .style("background", "#e5e5e5");*/
 
     d3.select(".industry-text")
       .transition()
         .style("padding", "0px");
 
-    document.getElementById('hidden-link').style.bottom = "-95px";
+    document.getElementById('hidden-link').style.bottom = "-185px";
   },
 
   ringData: [
