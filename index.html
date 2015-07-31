@@ -9,6 +9,7 @@
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> <!-- gets jquery -->
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> <!-- gets jquery -->
     <script src="js/buttons.js"></script>
+    <script src="js/description.js"></script>
 	</head>
 	<body>
 		<script src="js/main.js"></script>
@@ -19,9 +20,12 @@
         Touch a section of the pie graph to view the industries that our students get co-ops in.
       </p>
     </div>
+    <div class="button description"><img src="images/back_white.png"/></div>
 
-		<a class="hidden" id="hidden-link" href="https://google.com">
-			Read about a co-op!
+    <!--<p id="industry-label">Industry</p>-->
+
+		<a id="hidden-link" href="https://google.com">
+			Touch here to read about<br/> a co-op!
 		</a>
 
     <div class="button nav"><img src="images/back_white.png"/></div>
@@ -29,6 +33,7 @@
 
 		<script>
 			donut.setUp();
+      description.setUp();
 		</script>
 
 	</body>

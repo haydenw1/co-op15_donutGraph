@@ -4,7 +4,7 @@ body {
   padding: 0; }
 
 .button {
-  background: #666;
+  background-color: #666;
   border-radius: 100%;
   bottom: calc(2.5%);
   color: #fff;
@@ -15,6 +15,9 @@ body {
   z-index: 5; }
   .button img {
     float: left; }
+  .button.description {
+    left: calc(77%);
+    bottom: calc(50%); }
   .button.help {
     left: calc(77%); }
   .button#active {
@@ -31,16 +34,22 @@ body {
   background: #e5e5e5; }
 
 .top {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.9);
   border-bottom: 4px solid #333;
-  padding: 10px;
+  left: 0;
+  padding: 10px 15px;
   position: absolute;
-  top: 0px; }
+  right: 0;
+  top: 0;
+  z-index: 1; }
   .top .directions {
     color: #333;
-    font-size: 145%;
+    font-size: 2em;
     line-height: 1.25;
     margin: 0px; }
+  .top .title {
+    font-size: 4em;
+    margin: 5px 0px; }
 
 /*
 .color-background {
@@ -59,10 +68,20 @@ body {
 .industry-text {
   color: white;
   font-size: 3em;
+  height: 34px;
+  padding: 5px 0px;
   margin: 0px;
   position: absolute;
   text-align: center;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  z-index: -1; }
+
+#industry-label {
+  position: absolute;
+  font-size: 2em;
+  margin: 0px;
+  text-align: center;
   width: 100%; }
 
 .text-middle {
@@ -78,20 +97,18 @@ body {
     margin: 0px;
     text-align: center; }
 
-.hidden {
-  bottom: -185px;
+#hidden-link {
+  bottom: -28%;
   color: #fff;
   font-size: 180%;
-  height: 135px;
-  width: 95px;
-  border-radius: 100%;
-  left: 94px;
-  padding: 25px 45px;
+  width: 40%;
+  border-radius: 7%;
+  max-width: 150px;
+  padding: 3% 2%;
   position: absolute;
   text-align: center;
   text-decoration: none;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
-  transition: bottom .5s;
   /*span {
     background: $industry-span-color;
     font-size: 75%;
@@ -101,9 +118,5 @@ body {
     position: absolute;
     top: 0;
   }*/ }
-
-.title {
-  margin: 5px 0px;
-  text-align: center; }
 
 /*# sourceMappingURL=main.css.map */

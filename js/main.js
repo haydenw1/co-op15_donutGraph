@@ -4,13 +4,33 @@ var donut = {
   elements: {},
   measurements: {},
 
+  helpDescription: {
+    "1" : "Touch a colored section of the 'donut' graph",
+    "2" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
+    "3" : "If there is an industry related student co-op story, click the link that appears at the bottom of the screen to view the story"
+  },
+
   setUp: function(){
     donut.measurements.width = document.documentElement.clientWidth,
     donut.measurements.height = document.documentElement.clientHeight,
-    donut.measurements.radius = Math.min(donut.measurements.width, donut.measurements.height) / 2,
-    donut.measurements.outerRadius = donut.measurements.radius - 10,
-    donut.measurements.innerRadius = donut.measurements.radius - (donut.measurements.radius/2.25),
+    //donut.measurements.radius = Math.min(donut.measurements.width, donut.measurements.height) / 2,
+    //donut.measurements.outerRadius = donut.measurements.width > 400 ?  195 : donut.measurements.width - donut.measurements.width / 30,
+    //donut.measurements.innerRadius = donut.measurements.radius - (donut.measurements.radius/2.25),
     donut.measurements.textBoxHeight = 66;
+    donut.measurements.circleCY = donut.measurements.height / 2.5;
+    donut.measurements.circleCX = donut.measurements.width / 2;
+    //console.log(donut.measurements.circleCX);
+    //console.log(donut.measurements.circleCY);
+
+
+    donut.measurements.small = donut.measurements.height < 560
+
+    donut.measurements.outerRadius = donut.calculateRadii("outerRadius", this);
+    donut.measurements.innerRadius = donut.calculateRadii("innerRadius", this);
+
+    //console.log(donut.measurements.height/2.25);
+    //console.log(donut.measurements.width);
+    //console.log(donut.helpDescription);
 
     donut.elements.divMiddle = document.createElement("div");
     donut.elements.industry = document.createElement("p");
@@ -34,7 +54,7 @@ var donut = {
       .innerRadius(donut.measurements.innerRadius);
 
     donut.d3tools.secondaryArc = d3.svg.arc()
-      .outerRadius(donut.measurements.outerRadius + 10)
+      .outerRadius(donut.measurements.outerRadius + (donut.measurements.width / 35))
       .innerRadius(donut.measurements.innerRadius);
 
     donut.d3tools.pie = d3.layout.pie()
@@ -48,10 +68,32 @@ var donut = {
         .attr("width", donut.measurements.width)
         .attr("height", donut.measurements.height)
       .append("g")
-        .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.height / 2.25 + ")");
+        .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.circleCY + ")");
 
+    console.log(donut.measurements.circleCY);
     donut.useData();
     createButtons();
+  },
+
+  calculateRadii: function(radius, thi){
+    var ratio = donut.measurements.width / donut.measurements.height;
+    //console.log(ratio);
+    //console.log(thi);
+    if(ratio < .67){
+      if(radius == "outerRadius"){
+        return donut.measurements.width / 2 - (donut.measurements.width / 25);
+      }else{
+        return (donut.measurements.width/2 - (donut.measurements.width / 25)) - (donut.measurements.width * .2);
+      }
+    }else{
+      if(radius == "outerRadius"){
+        return 280;//donut.measurements.width/2 - (donut.measurements.width / 30);
+      }else{
+        return 160;//(donut.measurements.width/2 - (donut.measurements.width / 30)) - (donut.measurements.width * .2);
+      }
+    }
+    //donut.measurements[radius] = "blob";
+    //console.log(donut.measurements.outerRadius);
   },
 
   useData: function(){
@@ -83,7 +125,7 @@ var donut = {
 
     g.selectAll("path")
       .on("mouseover", function(d){
-        console.log(this);
+        //console.log(this);
         d3.select(this).attr("d", donut.d3tools.secondaryArc);
         donut.touchPath(d, this);
       })
@@ -92,17 +134,27 @@ var donut = {
         donut.leavePath(d, this);
       });
 
-      donut.elements.divMiddle.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) + "px";
-      donut.elements.divMiddle.style.left = String((donut.measurements.radius - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2)) + "px";
+      donut.elements.divMiddle.style.top = donut.measurements.circleCY - 75/2 + "px"; //((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2) + "px";
+      donut.elements.divMiddle.style.left = donut.measurements.circleCX - 113/2 + "px"; //(donut.measurements.width / 2 - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2) + "px";
       document.body.appendChild(donut.elements.divMiddle);
 
-      donut.elements.industry.style.top = String(donut.measurements.height/2.25 + donut.measurements.outerRadius + 30) + "px";
-  },
+      donut.elements.industry.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 54 + "px";
+
+
+
+      $( document ).ready(function(){
+        var hiddenLink = donut.elements.hiddenLink = document.getElementById("hidden-link");
+
+        hiddenLink.style.height = hiddenLink.clientWidth/1.25 + "px";
+        hiddenLink.style.left = (donut.measurements.width / 2) - (hiddenLink.clientWidth / 2) + "px";
+        hiddenLink.style.paddingTop = hiddenLink.clientWidth / 10 + "px";
+      });
+    },
 
   touchPath: function(d, touched){
-    d3.select(touched.parentNode.childNodes[1])
-      .transition()
-        .text("");
+    //d3.select(touched.parentNode.childNodes[1])
+      //.transition()
+        //.text("");
 
     //d3.select(touched)
       //.transition()
@@ -127,16 +179,33 @@ var donut = {
         //.style("background", touched.style.fill);
 
     d3.select(".industry-text")
-      .transition()
-        .style("padding", "10px 0px")
-        .style("background", touched.style.fill);
+      .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 54 + "px")
+      .style("background", "#e5e5e5")
+      //.transition()
+        //.style("padding", "10px 0px")
+
+      .transition().duration(750)
+      .style("background", touched.style.fill)
+        .style("top", d3.round(donut.measurements.circleCY + donut.measurements.outerRadius + (donut.measurements.height * (1 / 30))) + "px")
+        ;
+
+
+      console.log(d3.round(donut.measurements.height * (3 /4)) + "px");
       console.log(d.data.article);
     if(d.data.article){
       //document.getElementsByClassName('p-industry')[0].innerHTML = d.data.industry;
-      document.getElementById('hidden-link').style.bottom = "-110px";
-      document.getElementById('hidden-link').style.background = touched.style.fill;
+      d3.select('#hidden-link')
+      .style("bottom", "-30%")
+      .transition().duration(750)
+        .style("bottom", "-9%")
+        .style("background", touched.style.fill);
+
+      //document.getElementById('hidden-link').style.bottom = "-110px";
+
+
+      //document.getElementById('hidden-link').style.background = touched.style.fill;
     }else{
-      console.log("doesn't have an article");
+      //console.log("doesn't have an article");
     }
   },
 
@@ -163,10 +232,15 @@ var donut = {
         .style("background", "#e5e5e5");*/
 
     d3.select(".industry-text")
-      .transition()
-        .style("padding", "0px");
+      .transition().duration(750)
+        .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 44 + "px")
+        //.transition()
+          .style("background","#e5e5e5");
+        //.style("padding", "0px");
 
-    document.getElementById('hidden-link').style.bottom = "-185px";
+    d3.select('#hidden-link')
+      .transition()
+        .style("bottom", "-30%");
   },
 
   ringData: [
