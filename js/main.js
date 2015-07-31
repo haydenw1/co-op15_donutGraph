@@ -13,25 +13,40 @@ var donut = {
   setUp: function(){
     donut.measurements.width = document.documentElement.clientWidth,
     donut.measurements.height = document.documentElement.clientHeight,
-    //donut.measurements.radius = Math.min(donut.measurements.width, donut.measurements.height) / 2,
-    //donut.measurements.outerRadius = donut.measurements.width > 400 ?  195 : donut.measurements.width - donut.measurements.width / 30,
-    //donut.measurements.innerRadius = donut.measurements.radius - (donut.measurements.radius/2.25),
+
     donut.measurements.textBoxHeight = 66;
     donut.measurements.circleCY = donut.measurements.height / 2.5;
     donut.measurements.circleCX = donut.measurements.width / 2;
-    //console.log(donut.measurements.circleCX);
-    //console.log(donut.measurements.circleCY);
-
-
-    donut.measurements.small = donut.measurements.height < 560
 
     donut.measurements.outerRadius = donut.calculateRadii("outerRadius", this);
     donut.measurements.innerRadius = donut.calculateRadii("innerRadius", this);
 
-    //console.log(donut.measurements.height/2.25);
-    //console.log(donut.measurements.width);
-    //console.log(donut.helpDescription);
+    donut.makeElements();
+    donut.makeTools();
+    donut.makeGVis();
+    donut.useData();
+    createButtons();
+  },
 
+  calculateRadii: function(radius, thi){
+    var ratio = donut.measurements.width / donut.measurements.height;
+
+    if(ratio < .67){
+      if(radius == "outerRadius"){
+        return donut.measurements.width / 2 - (donut.measurements.width / 25);
+      }else{
+        return (donut.measurements.width/2 - (donut.measurements.width / 25)) - (donut.measurements.width * .2);
+      }
+    }else{
+      if(radius == "outerRadius"){
+        return 280;
+      }else{
+        return 160;
+      }
+    }
+  },
+
+  makeElements: function(){
     donut.elements.divMiddle = document.createElement("div");
     donut.elements.industry = document.createElement("p");
     donut.elements.percentNumber = document.createElement("p");
@@ -45,7 +60,9 @@ var donut = {
     document.body.appendChild(donut.elements.industry);
     donut.elements.divMiddle.appendChild(donut.elements.percentNumber);
     donut.elements.divMiddle.appendChild(donut.elements.percentText);
+  },
 
+  makeTools: function(){
     donut.d3tools.color = d3.scale.ordinal()
       .range(["#002e6c", "#00adee", "#ff661b", "#025594", "#9fc600", "#333333", "#be1e2d"]);
 
@@ -62,38 +79,15 @@ var donut = {
       .value(function(d) {
         return d.percent;
       });
+  },
 
+  makeGVis: function(){
     donut.elements.gVis = d3.select("body")
       .append("svg")
         .attr("width", donut.measurements.width)
         .attr("height", donut.measurements.height)
       .append("g")
         .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.circleCY + ")");
-
-    console.log(donut.measurements.circleCY);
-    donut.useData();
-    createButtons();
-  },
-
-  calculateRadii: function(radius, thi){
-    var ratio = donut.measurements.width / donut.measurements.height;
-    //console.log(ratio);
-    //console.log(thi);
-    if(ratio < .67){
-      if(radius == "outerRadius"){
-        return donut.measurements.width / 2 - (donut.measurements.width / 25);
-      }else{
-        return (donut.measurements.width/2 - (donut.measurements.width / 25)) - (donut.measurements.width * .2);
-      }
-    }else{
-      if(radius == "outerRadius"){
-        return 280;//donut.measurements.width/2 - (donut.measurements.width / 30);
-      }else{
-        return 160;//(donut.measurements.width/2 - (donut.measurements.width / 30)) - (donut.measurements.width * .2);
-      }
-    }
-    //donut.measurements[radius] = "blob";
-    //console.log(donut.measurements.outerRadius);
   },
 
   useData: function(){
@@ -103,8 +97,6 @@ var donut = {
       .append("path")
         .attr("class", "back-ring")
         .attr("d", donut.d3tools.arc);
-        //.style("fill", "#bbbbbc");
-
 
     var g = donut.elements.gVis.selectAll(".arc")
       .data(donut.d3tools.pie(donut.data))
@@ -116,16 +108,8 @@ var donut = {
       .attr("d", donut.d3tools.arc)
       .style("fill", function(d,i) { return donut.d3tools.color(i); });
 
-    /*g.append("text")
-      .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
-      .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .style("pointer-events", "none")
-      .text(function(d) { return d.data.percent + "%"; });*/
-
     g.selectAll("path")
       .on("mouseover", function(d){
-        //console.log(this);
         d3.select(this).attr("d", donut.d3tools.secondaryArc);
         donut.touchPath(d, this);
       })
@@ -134,78 +118,44 @@ var donut = {
         donut.leavePath(d, this);
       });
 
-      donut.elements.divMiddle.style.top = donut.measurements.circleCY - 75/2 + "px"; //((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2) + "px";
-      donut.elements.divMiddle.style.left = donut.measurements.circleCX - 113/2 + "px"; //(donut.measurements.width / 2 - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2) + "px";
-      document.body.appendChild(donut.elements.divMiddle);
+    donut.elements.divMiddle.style.top = donut.measurements.circleCY - 75/2 + "px"; //((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2) + "px";
+    donut.elements.divMiddle.style.left = donut.measurements.circleCX - 113/2 + "px"; //(donut.measurements.width / 2 - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2) + "px";
+    document.body.appendChild(donut.elements.divMiddle);
 
-      donut.elements.industry.style.top = String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 54 + "px";
+    donut.elements.industry.style.top = donut.measurements.circleCY - (75/2) - 54 + "px";
 
+    $( document ).ready(function(){
+      var hiddenLink = donut.elements.hiddenLink = document.getElementById("hidden-link");
 
-
-      $( document ).ready(function(){
-        var hiddenLink = donut.elements.hiddenLink = document.getElementById("hidden-link");
-
-        hiddenLink.style.height = hiddenLink.clientWidth/1.25 + "px";
-        hiddenLink.style.left = (donut.measurements.width / 2) - (hiddenLink.clientWidth / 2) + "px";
-        hiddenLink.style.paddingTop = hiddenLink.clientWidth / 10 + "px";
-      });
-    },
+      hiddenLink.style.height = hiddenLink.clientWidth/1.25 + "px";
+      hiddenLink.style.left = (donut.measurements.width / 2) - (hiddenLink.clientWidth / 2) + "px";
+      hiddenLink.style.paddingTop = hiddenLink.clientWidth / 10 + "px";
+    });
+  },
 
   touchPath: function(d, touched){
-    //d3.select(touched.parentNode.childNodes[1])
-      //.transition()
-        //.text("");
-
-    //d3.select(touched)
-      //.transition()
-        //.style("fill", "yellow");
-        //.style("opacity", 1);
-
     d3.select(".industry-text")
       .text(d.data.industry);
 
     d3.select(".percent-number")
-      .text(d.data.percent + "%")
-      //.transition()
-        //.style("color", touched.style.fill);
+      .text(d.data.percent + "%");
 
     d3.select(".percent-text")
-      .text("of co-op students")
-      //.transition()
-        //.style("color", touched.style.fill);
-
-    //d3.select(".color-background")
-      //.transition()
-        //.style("background", touched.style.fill);
+      .text("of co-op students");
 
     d3.select(".industry-text")
       .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 54 + "px")
       .style("background", "#e5e5e5")
-      //.transition()
-        //.style("padding", "10px 0px")
-
       .transition().duration(750)
-      .style("background", touched.style.fill)
-        .style("top", d3.round(donut.measurements.circleCY + donut.measurements.outerRadius + (donut.measurements.height * (1 / 30))) + "px")
-        ;
+        .style("background", touched.style.fill)
+        .style("top", d3.round(donut.measurements.circleCY + donut.measurements.outerRadius + (donut.measurements.height * (1 / 30))) + "px");
 
-
-      console.log(d3.round(donut.measurements.height * (3 /4)) + "px");
-      console.log(d.data.article);
     if(d.data.article){
-      //document.getElementsByClassName('p-industry')[0].innerHTML = d.data.industry;
       d3.select('#hidden-link')
       .style("bottom", "-30%")
       .transition().duration(750)
         .style("bottom", "-9%")
         .style("background", touched.style.fill);
-
-      //document.getElementById('hidden-link').style.bottom = "-110px";
-
-
-      //document.getElementById('hidden-link').style.background = touched.style.fill;
-    }else{
-      //console.log("doesn't have an article");
     }
   },
 
@@ -221,34 +171,22 @@ var donut = {
         .style("fill",function(d) {
           return donut.d3tools.color(donut.data.indexOf(d.data));
         });
-        //.style("opacity", 1);
 
     d3.select(".industry-text").text(null);
     d3.select(".percent-number").text(null);
     d3.select(".percent-text").text(null);
 
-    /*d3.select(".color-background")
-      .transition()
-        .style("background", "#e5e5e5");*/
-
     d3.select(".industry-text")
       .transition().duration(750)
         .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 44 + "px")
-        //.transition()
-          .style("background","#e5e5e5");
-        //.style("padding", "0px");
+        .style("background","#e5e5e5");
 
     d3.select('#hidden-link')
       .transition()
         .style("bottom", "-30%");
   },
 
-  ringData: [
-    {
-      "percent": 100
-    }
-  ],
-
+  //main data object that holds industry names, percentage, and if we have article of not (also unused count property as of right now)
   data: [
     {
       "industry":"Print",
