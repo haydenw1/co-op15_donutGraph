@@ -16,8 +16,9 @@ $button-background-color: #666;
   }
 
   &.description{
-    left: calc(77%);
     bottom: calc(50%);
+    left: calc(44%);
+    transition: bottom 1s, left 1s, height 1s, width 1s;
   }
 
   &.help{

@@ -25,13 +25,13 @@ var donut = {
     donut.makeTools();
     donut.makeGVis();
     donut.useData();
-    createButtons();
+    buttons.createButtons();
   },
 
   calculateRadii: function(radius, thi){
     var ratio = donut.measurements.width / donut.measurements.height;
-
-    if(ratio < .67){
+    console.log(donut.measurements.width);
+    if(donut.measurements.width < 600){
       if(radius == "outerRadius"){
         return donut.measurements.width / 2 - (donut.measurements.width / 25);
       }else{
@@ -56,6 +56,10 @@ var donut = {
     donut.elements.industry.setAttribute("class","industry-text");
     donut.elements.percentNumber.setAttribute("class","percent-number");
     donut.elements.percentText.setAttribute("class","percent-text");
+
+    donut.measurements.industryHeight = 44;
+    donut.measurements.divMiddleHeight = 75;
+    donut.measurements.divMiddleWidth = 113;
 
     document.body.appendChild(donut.elements.industry);
     donut.elements.divMiddle.appendChild(donut.elements.percentNumber);
@@ -91,13 +95,6 @@ var donut = {
   },
 
   useData: function(){
-    donut.elements.gVis.selectAll("path")
-      .data(donut.d3tools.pie(donut.ringData))
-      .enter()
-      .append("path")
-        .attr("class", "back-ring")
-        .attr("d", donut.d3tools.arc);
-
     var g = donut.elements.gVis.selectAll(".arc")
       .data(donut.d3tools.pie(donut.data))
       .enter()
@@ -118,22 +115,26 @@ var donut = {
         donut.leavePath(d, this);
       });
 
-    donut.elements.divMiddle.style.top = donut.measurements.circleCY - 75/2 + "px"; //((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2) + "px";
-    donut.elements.divMiddle.style.left = donut.measurements.circleCX - 113/2 + "px"; //(donut.measurements.width / 2 - donut.measurements.innerRadius) + (((donut.measurements.innerRadius * 2) - 113) / 2) + "px";
+    donut.elements.divMiddle.style.top = donut.measurements.circleCY - donut.measurements.divMiddleHeight/2 + "px";
+    donut.elements.divMiddle.style.left = donut.measurements.circleCX - donut.measurements.divMiddleWidth/2 + "px";
     document.body.appendChild(donut.elements.divMiddle);
 
-    donut.elements.industry.style.top = donut.measurements.circleCY - (75/2) - 54 + "px";
+    donut.elements.industry.style.top = donut.measurements.circleCY - (donut.measurements.height/2) - donut.measurements.industryHeight + "px";
 
     $( document ).ready(function(){
       var hiddenLink = donut.elements.hiddenLink = document.getElementById("hidden-link");
 
       hiddenLink.style.height = hiddenLink.clientWidth/1.25 + "px";
       hiddenLink.style.left = (donut.measurements.width / 2) - (hiddenLink.clientWidth / 2) + "px";
-      hiddenLink.style.paddingTop = hiddenLink.clientWidth / 10 + "px";
     });
   },
 
   touchPath: function(d, touched){
+    if( !description.hidden ){
+      console.log("ragggity ann");
+      description.hide();
+    }
+
     d3.select(".industry-text")
       .text(d.data.industry);
 
@@ -144,7 +145,7 @@ var donut = {
       .text("of co-op students");
 
     d3.select(".industry-text")
-      .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 54 + "px")
+      .style("top", donut.measurements.circleCY - (donut.measurements.divMiddleHeight/2) - donut.measurements.industryHeight + "px")
       .style("background", "#e5e5e5")
       .transition().duration(750)
         .style("background", touched.style.fill)
@@ -178,7 +179,7 @@ var donut = {
 
     d3.select(".industry-text")
       .transition().duration(750)
-        .style("top", String(((donut.measurements.height/2.25 + donut.measurements.innerRadius) - 75) - (((donut.measurements.innerRadius * 2) - 75) / 2)) - 44 + "px")
+        .style("top", donut.measurements.circleCY - (donut.measurements.divMiddleHeight/2) - donut.measurements.industryHeight + "px")
         .style("background","#e5e5e5");
 
     d3.select('#hidden-link')

@@ -1,0 +1,102 @@
+/**
+ * Fix #hidden-link height on short devices by adjusting padding
+ */
+@media screen
+and (max-device-height: 500px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  a#hidden-link {
+    padding: 2% 2% 0%;
+  }
+}
+
+/**
+ * Fixes button placement on iPhone 4
+ */
+@media screen
+and (max-device-width: 320px)
+and (max-device-height: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  div.hidden.button.description{
+    bottom: 92%;
+  }
+}
+
+
+/**
+ * Fixes initial description dimensions and text attributes on skinny screens
+ */
+@media screen
+and (max-device-width: 360px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  div.top .title {
+    font-size: 3em;
+  }
+
+  div.hidden{
+
+    &.top {
+      padding: 12px 15px 3px;
+
+      .title{
+        font-size: 1.7em;
+        margin: 0px;
+      }
+    }
+  }
+}
+
+/**
+ * Fix for title margin for iPHone 6+ and similar width devices
+ */
+@media screen
+and (max-device-width: 415px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  div.hidden {
+
+    &.top .title {
+      margin: 9px 0px;
+    }
+
+    &.button.description{
+      bottom: 93.25%;
+    }
+  }
+}
+
+
+/**
+ * iPad sized or similar tablet. Makes text and padding on elements greater
+ */
+@media screen
+and (min-device-width: 760px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+  a#hidden-link {
+    padding: 3% 2% 6%;
+  }
+
+  div.top {
+    p.directions {
+      font-size: 2.5em;
+      line-height: 1.5em;
+      margin: 25px 0px;
+    }
+  }
+
+  div.hidden {
+
+    &.top .title {
+      font-size: 4em;
+      margin: 5px 0px;
+    }
+
+    &.button.description {
+      bottom: 93.75%;
+      left: 85%;
+    }
+  }
+
+  p.industry-text {
+    padding: 10px 0px;
+  }
+}

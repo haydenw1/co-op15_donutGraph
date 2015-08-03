@@ -1,10 +1,18 @@
+
 $font-stack: sans-serif;
+$body-background-color: #e5e5e5;
+$hidden-link-color: #fff;
+$industry-text-color: #fff;
+$text-middle-color: #333;
 $top-background-color:rgba(255, 255, 255, .9);
+$top-border-color: #333;
 $p-text-color: #333;
 $industry-span-color: #000;
 
-@import 'reset';
 @import 'buttons';
+@import 'hidden';
+@import 'mediaQ_hidden';
+@import 'reset';
 
 html,
 body {
@@ -14,42 +22,43 @@ body {
 }
 
 body {
-  font: 10px sans-serif;
-  background: #e5e5e5;
+  font: 10px sans-serif;                //will change when I get fonts from olivia
+  background: $body-background-color;
 }
 
-.top{
+.top {
   background: $top-background-color;
-  border-bottom: 4px solid #333;
+  border-bottom: 4px solid $top-border-color;
   left: 0;
   padding: 10px 15px;
   position: absolute;
   right: 0;
   top: 0;
+  transition: height 1s;
   z-index: 1;
 
   .directions {
     color: $p-text-color;
     font-size: 2em;
     line-height: 1.25;
-    margin: 0px;
+    margin: 0;
+    pointer-events: none;
+    transition: opacity .75s;
   }
-  .title{
+
+  .title {
     font-size: 4em;
     margin: 5px 0px;
+    transition: font-size .25s;
   }
-}
-
-.arc {
-  -webkit-touch-callout: none;
 }
 
 .industry-text {
-  color: white;
+  color: $industry-text-color;
   font-size: 3em;
   height: 34px;
   padding: 5px 0px;
-  margin: 0px;
+  margin: 0;
   position: absolute;
   text-align: center;
   text-shadow: 0px 2px 2px rgba(0,0,0,.5);
@@ -57,44 +66,43 @@ body {
   z-index: -1;
 }
 
-#industry-label{
+#industry-label {
   position: absolute;
   font-size: 2em;
-  margin: 0px;
+  margin: 0;
   text-align: center;
   width: 100%;
 
 }
+
 .text-middle {
-  color: #333;
+  color: $text-middle-color;
   position: absolute;
   pointer-events: none;
 
   .percent-number {
     font-size: 5em;
-    margin: 0px;
+    margin: 0;
     text-align: center;
   }
 
   .percent-text {
     font-size: 1.5em;
-    margin: 0px;
+    margin: 0;
     text-align: center;
   }
 }
 
 #hidden-link {
-  bottom: -28%;
-  color: #fff;
-  font-size: 180%;
-  width: 40%;
   border-radius: 7%;
+  bottom: -28%;
+  color: $hidden-link-color;
+  font-size: 1.8em;
   max-width: 150px;
   padding: 3% 2%;
   position: absolute;
   text-align: center;
   text-decoration: none;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  width: 40%;
 }
-
-
