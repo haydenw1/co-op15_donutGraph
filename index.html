@@ -5,9 +5,13 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, maximum-scale=1, user-scalable=0">
 		<link type="text/css" rel="stylesheet" href="css/main.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> <!-- gets jquery -->
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> <!-- gets jquery -->
+
+    <script src="js/dpsHTMLGestureAPI.min.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/buttons.js"></script>
     <script src="js/description.js"></script>
 	</head>
@@ -20,10 +24,8 @@
         Touch a section of the pie graph to view the industries that our students get co-ops in.
       </p>
     </div>
-    <div class="button description"><!-- <img src="images/back_white.png"/> -->
-    </div>
 
-    <!--<p id="industry-label">Industry</p>-->
+    <div class="button description"></div>
 
 		<a id="hidden-link" href="https://google.com">
 			Touch here to read about<br/> a co-op!
@@ -33,9 +35,9 @@
     <div class="button help"><img src="images/help_white.png"/></div>
 
 		<script>
-			donut.setUp();
+			api.setUp();
+      donut.setUp();
       description.setUp();
 		</script>
-
 	</body>
 </html>
