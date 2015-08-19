@@ -1,18 +1,25 @@
+@import 'buttons';
+@import 'description';
+@import 'mediaQ_description';
+@import 'reset';
+@import 'fonts';
 
-$font-stack: sans-serif;
+//@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
+
+@include avenir;
+
+$body-font: "Avenir-Roman", sans-serif;
+$description-top-font: "Avenir-Black", sans-serif;
+
 $body-background-color: #e5e5e5;
 $hidden-link-color: #fff;
+$hidden-background-color: #666;
 $industry-text-color: #fff;
 $text-middle-color: #333;
 $top-background-color:rgba(255, 255, 255, .9);
 $top-border-color: #333;
 $p-text-color: #333;
 $industry-span-color: #000;
-
-@import 'buttons';
-@import 'hidden';
-@import 'mediaQ_hidden';
-@import 'reset';
 
 html,
 body {
@@ -22,13 +29,13 @@ body {
 }
 
 body {
-  font: 10px sans-serif;                //will change when I get fonts from olivia
   background: $body-background-color;
+  font-family: $body-font;              //will change when I get fonts from olivia
 }
 
 .top {
   background: $top-background-color;
-  border-bottom: 4px solid $top-border-color;
+  //border-bottom: 4px solid $top-border-color;
   left: 0;
   padding: 10px 15px;
   position: absolute;
@@ -38,16 +45,20 @@ body {
   z-index: 1;
 
   .directions {
-    color: $p-text-color;
-    font-size: 2em;
+    color: #333;
+    text-indent: 1em;
+    font-size: 1.4em;
     line-height: 1.25;
+    padding: 8px;
     margin: 0;
+    text-align: justify;
     pointer-events: none;
-    transition: opacity .75s;
+    transition: opacity .65s;
   }
 
   .title {
-    font-size: 4em;
+    font-family: $description-top-font;
+    font-size: 2em;
     margin: 5px 0px;
     transition: font-size .25s;
   }
@@ -55,54 +66,89 @@ body {
 
 .industry-text {
   color: $industry-text-color;
-  font-size: 3em;
+  font-size: 1.75em;
   height: 34px;
+  //padding: 5px 0px 15px;
   padding: 5px 0px;
   margin: 0;
+  opacity: 0;
   position: absolute;
   text-align: center;
   text-shadow: 0px 2px 2px rgba(0,0,0,.5);
   width: 100%;
   z-index: -1;
+  //font-family: 'Kaushan Script', cursive;
 }
 
-#industry-label {
-  position: absolute;
-  font-size: 2em;
+.label {
+  //display: none;
+  //background-color: purple;
+  color: white;
+  font-size: 1.1em;
   margin: 0;
+  opacity: 0;
+  padding: 5px 0px;
+  position: absolute;
   text-align: center;
   width: 100%;
+  z-index: -2;
 
+  &.down {
+    //font-family: 'Kaushan Script', cursive;
+    //font-size: 1.35em;
+  }
+
+  &.up {
+    //font-family: 'Kaushan Script', cursive;
+    //font-size: 1.1em;
+  }
+}
+
+#label-back {
+  background-color: rgba(102 ,102 , 102, .75);
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: -3;
 }
 
 .text-middle {
   color: $text-middle-color;
-  position: absolute;
+  opacity: 0;
   pointer-events: none;
+  position: absolute;
+  transition: opacity .75s;
 
   .percent-number {
-    font-size: 5em;
-    margin: 0;
+    font-size: 3.5em;
+    margin: -6px;
     text-align: center;
+    //font-family: 'Kaushan Script', cursive;
   }
 
   .percent-text {
-    font-size: 1.5em;
+    font-size: 1.1em;
     margin: 0;
     text-align: center;
   }
 }
 
 #hidden-link {
-  border-radius: 7%;
-  bottom: -28%;
+  background-color: $hidden-background-color; //rgba(5, 5, 5, 0.8);
+  border-radius: 35px;
+  bottom: 3%;
   color: $hidden-link-color;
-  font-size: 1.8em;
-  max-width: 150px;
-  padding: 3% 2%;
+  font-size: 1.35em;
+  height: 37px;
+  left: 30%;
+  opacity: 0;
+  padding-top: 10px;
   position: absolute;
   text-align: center;
   text-decoration: none;
-  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, .5);
+  transition: opacity .5s, background .5s;
   width: 40%;
+  -webkit-tap-highlight-color:rgba(255,0,0,0); //hides tap callout box
+  z-index: 100;
 }

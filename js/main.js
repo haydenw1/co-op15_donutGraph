@@ -1,8 +1,8 @@
 var donut = {
 
   d3tools: {},
-  elements: {},
-  measurements: {},
+  elem: {},
+  meas: {},
 
   helpDescription: {
     "1" : "Touch a colored section of the 'donut' graph",
@@ -11,31 +11,41 @@ var donut = {
   },
 
   setUp: function(){
-    donut.measurements.width = document.documentElement.clientWidth,
-    donut.measurements.height = document.documentElement.clientHeight,
+    $( document ).ready(function(){
+      var dM = donut.meas;
 
-    donut.measurements.textBoxHeight = 66;
-    donut.measurements.circleCY = donut.measurements.height / 2.5;
-    donut.measurements.circleCX = donut.measurements.width / 2;
+      dM.width = document.documentElement.clientWidth,
+      dM.height = document.documentElement.clientHeight,
 
-    donut.measurements.outerRadius = donut.calculateRadii("outerRadius", this);
-    donut.measurements.innerRadius = donut.calculateRadii("innerRadius", this);
+      dM.textBoxHeight = 66;
+      dM.circleCY = dM.height / 2.6;
+      dM.circleCX = dM.width / 2;
 
-    donut.makeElements();
-    donut.makeTools();
-    donut.makeGVis();
-    donut.useData();
-    buttons.createButtons();
+      dM.outerRadius = donut.calculateRadii("outerRadius", this);
+      dM.innerRadius = donut.calculateRadii("innerRadius", this);
+
+      dM.circleOutsideEdge = dM.circleCY + dM.outerRadius;
+
+      dM.industryEndLocation = Math.round(dM.circleOutsideEdge + dM.height * (1 / 11));
+
+      donut.makeElements();
+      donut.makeTools();
+      donut.makeGVis();
+      donut.useData();
+      buttons.createButtons();
+    });
   },
 
+
+
   calculateRadii: function(radius, thi){
-    var ratio = donut.measurements.width / donut.measurements.height;
-    console.log(donut.measurements.width);
-    if(donut.measurements.width < 600){
+    var ratio = donut.meas.width / donut.meas.height;
+    console.log(donut.meas.width);
+    if(donut.meas.width < 600){
       if(radius == "outerRadius"){
-        return donut.measurements.width / 2 - (donut.measurements.width / 25);
+        return donut.meas.width / 2 - (donut.meas.width / 25);
       }else{
-        return (donut.measurements.width/2 - (donut.measurements.width / 25)) - (donut.measurements.width * .2);
+        return (donut.meas.width/2 - (donut.meas.width / 25)) - (donut.meas.width * .2);
       }
     }else{
       if(radius == "outerRadius"){
@@ -46,37 +56,64 @@ var donut = {
     }
   },
 
+
+
   makeElements: function(){
-    donut.elements.divMiddle = document.createElement("div");
-    donut.elements.industry = document.createElement("p");
-    donut.elements.percentNumber = document.createElement("p");
-    donut.elements.percentText = document.createElement("p");
+    var dE = donut.elem;
+    var dM = donut.meas;
 
-    donut.elements.divMiddle.setAttribute("class","text-middle");
-    donut.elements.industry.setAttribute("class","industry-text");
-    donut.elements.percentNumber.setAttribute("class","percent-number");
-    donut.elements.percentText.setAttribute("class","percent-text");
+    dE.divMiddle = document.getElementsByClassName("text-middle")[0]; //document.createElement("div");
+    dE.hiddenLink = document.getElementById("hidden-link");
+    dE.industry = document.getElementsByClassName("industry-text")[0];//document.createElement("p");
+    dE.industryLabelBack = document.getElementById("label-back");
+    dE.industryLabelDown = document.getElementsByClassName("label down")[0];//document.createElement("p");
+    dE.industryLabelUp = document.getElementsByClassName("label up")[0];//document.createElement("p");
+    dE.percentNumber = document.getElementsByClassName("percent-number")[0];//document.createElement("p");
+    dE.percentText = document.getElementsByClassName("percent-text")[0];//document.createElement("p");
 
-    donut.measurements.industryHeight = 44;
-    donut.measurements.divMiddleHeight = 75;
-    donut.measurements.divMiddleWidth = 113;
+    document.body.appendChild(dE.industry);
+    dE.divMiddle.appendChild(dE.percentNumber);
+    dE.divMiddle.appendChild(dE.percentText);
 
-    document.body.appendChild(donut.elements.industry);
-    donut.elements.divMiddle.appendChild(donut.elements.percentNumber);
-    donut.elements.divMiddle.appendChild(donut.elements.percentText);
+    dM.divMiddleHeight = dE.divMiddle.clientHeight;
+    dM.divMiddleWidth = dE.divMiddle.clientWidth;
+    dM.industryHeight = dE.industry.clientHeight;
+    dM.industryLabelUpHeight = dE.industryLabelUp.clientHeight;
+    dM.industryLabelDownHeight = dE.industryLabelDown.clientHeight;
+
+    console.log(dM.industryHeight);
+    dE.industryLabelBack.style.height = dM.industryHeight + "px";
+    dE.industryLabelBack.style.top = dM.industryEndLocation + "px";
+    console.log(dM.industryLabelDownHeight);
+
+    dM.industryStartLocation = dM.circleCY - (dM.divMiddleHeight/2) - dM.industryHeight;  //define industry start location after finding industryHeight and divMiddleHeight
+
+    dE.divMiddle.style.top = dM.circleCY - dM.divMiddleHeight/2 + "px";
+    dE.divMiddle.style.left = dM.circleCX - dM.divMiddleWidth/2 + "px";
+
+    dM.industryLabelUpStartLocation = dM.industryEndLocation;
+    dM.industryLabelDownStartLocation = dM.industryEndLocation + dM.industryHeight - dM.industryLabelDownHeight;
+
+    dE.industryLabelUp.style.top = dM.industryLabelUpStartLocation + "px";
+    dE.industryLabelDown.style.top = dM.industryLabelDownStartLocation + "px";
+
+    dM.industryLabelUpEndLocation = dM.industryEndLocation - dM.industryLabelUpHeight + 1;  //plus 1 for weird pixel problem...fix later?
+    dM.industryLabelDownEndLocation = donut.meas.industryEndLocation + donut.meas.industryHeight;
   },
+
+
 
   makeTools: function(){
     donut.d3tools.color = d3.scale.ordinal()
       .range(["#002e6c", "#00adee", "#ff661b", "#025594", "#9fc600", "#333333", "#be1e2d"]);
 
     donut.d3tools.arc = d3.svg.arc()
-      .outerRadius(donut.measurements.outerRadius)
-      .innerRadius(donut.measurements.innerRadius);
+      .outerRadius(donut.meas.outerRadius)
+      .innerRadius(donut.meas.innerRadius);
 
     donut.d3tools.secondaryArc = d3.svg.arc()
-      .outerRadius(donut.measurements.outerRadius + (donut.measurements.width / 35))
-      .innerRadius(donut.measurements.innerRadius);
+      .outerRadius(donut.meas.outerRadius + (donut.meas.width / 35))
+      .innerRadius(donut.meas.innerRadius);
 
     donut.d3tools.pie = d3.layout.pie()
       .sort(null)
@@ -85,17 +122,21 @@ var donut = {
       });
   },
 
+
+
   makeGVis: function(){
-    donut.elements.gVis = d3.select("body")
+    donut.elem.gVis = d3.select("body")
       .append("svg")
-        .attr("width", donut.measurements.width)
-        .attr("height", donut.measurements.height)
+        .attr("width", donut.meas.width)
+        .attr("height", donut.meas.height)
       .append("g")
-        .attr("transform", "translate(" + donut.measurements.width / 2 + "," + donut.measurements.circleCY + ")");
+        .attr("transform", "translate(" + donut.meas.width / 2 + "," + donut.meas.circleCY + ")");
   },
 
+
+
   useData: function(){
-    var g = donut.elements.gVis.selectAll(".arc")
+    var g = donut.elem.gVis.selectAll(".arc")
       .data(donut.d3tools.pie(donut.data))
       .enter()
       .append("g")
@@ -107,58 +148,71 @@ var donut = {
 
     g.selectAll("path")
       .on("mouseover", function(d){
-        d3.select(this).attr("d", donut.d3tools.secondaryArc);
+        d3.select(this)
+          .transition("linear")
+            .attr("d", donut.d3tools.secondaryArc);
+
         donut.touchPath(d, this);
       })
       .on("mouseout", function(d){
         d3.select(this).attr("d", donut.d3tools.arc);
         donut.leavePath(d, this);
       });
-
-    donut.elements.divMiddle.style.top = donut.measurements.circleCY - donut.measurements.divMiddleHeight/2 + "px";
-    donut.elements.divMiddle.style.left = donut.measurements.circleCX - donut.measurements.divMiddleWidth/2 + "px";
-    document.body.appendChild(donut.elements.divMiddle);
-
-    donut.elements.industry.style.top = donut.measurements.circleCY - (donut.measurements.height/2) - donut.measurements.industryHeight + "px";
-
-    $( document ).ready(function(){
-      var hiddenLink = donut.elements.hiddenLink = document.getElementById("hidden-link");
-
-      hiddenLink.style.height = hiddenLink.clientWidth/1.25 + "px";
-      hiddenLink.style.left = (donut.measurements.width / 2) - (hiddenLink.clientWidth / 2) + "px";
-    });
   },
 
+
+
   touchPath: function(d, touched){
-    if( !description.hidden ){
-      console.log("ragggity ann");
+    if(!description.hidden){
       description.hide();
     }
 
-    d3.select(".industry-text")
+    d3.select(donut.elem.industry)
       .text(d.data.industry);
 
-    d3.select(".percent-number")
+    d3.select(donut.elem.percentNumber)
       .text(d.data.percent + "%");
 
-    d3.select(".percent-text")
-      .text("of co-op students");
+    donut.elem.divMiddle.style.opacity = 1;
 
-    d3.select(".industry-text")
-      .style("top", donut.measurements.circleCY - (donut.measurements.divMiddleHeight/2) - donut.measurements.industryHeight + "px")
+    d3.select(donut.elem.industry)
       .style("background", "#e5e5e5")
+      .style("opacity", 1)
+      .style("text-shadow", "0px 2px 2px rgba(0, 0, 0, 0.5)")
+      .style("top", donut.meas.industryStartLocation + "px")
       .transition().duration(750)
         .style("background", touched.style.fill)
-        .style("top", d3.round(donut.measurements.circleCY + donut.measurements.outerRadius + (donut.measurements.height * (1 / 30))) + "px");
+        .style("top", donut.meas.industryEndLocation + "px")
+        .each("end", function(){
+          console.log(this);
+          d3.select(donut.elem.industryLabelBack)
+            .transition()
+              .style("top", donut.meas.industryLabelUpEndLocation + "px")
+              .style("height", donut.meas.industryHeight + donut.meas.industryLabelUpHeight + donut.meas.industryLabelDownHeight + "px")
+              .style("opacity", 1);
+          d3.select(donut.elem.industryLabelUp)
+            .transition()
+              .style("top", donut.meas.industryLabelUpEndLocation + "px")
+              .style("opacity", 1);
+          d3.select(donut.elem.industryLabelDown)
+            .transition()
+              .style("top", donut.meas.industryLabelDownEndLocation + "px")
+              .style("opacity", 1);
+        });
 
     if(d.data.article){
-      d3.select('#hidden-link')
-      .style("bottom", "-30%")
-      .transition().duration(750)
-        .style("bottom", "-9%")
-        .style("background", touched.style.fill);
+      var dehL = donut.elem.hiddenLink;  //holder var to make repeated element reference more readable
+
+      dehL.setAttribute("href", d.data.article);
+      dehL.style.opacity = 1;
+      dehL.style.background = touched.style.fill;
+      dehL.removeEventListener("click", donut.stopDefAction);
+    }else{
+      donut.elem.hiddenLink.addEventListener("click", donut.stopDefAction, false);
     }
   },
+
+
 
   leavePath: function(d, touched){
     d3.select(touched.parentNode.childNodes[1])
@@ -173,19 +227,42 @@ var donut = {
           return donut.d3tools.color(donut.data.indexOf(d.data));
         });
 
-    d3.select(".industry-text").text(null);
-    d3.select(".percent-number").text(null);
-    d3.select(".percent-text").text(null);
+    donut.elem.divMiddle.style.opacity = 0;
 
     d3.select(".industry-text")
       .transition().duration(750)
-        .style("top", donut.measurements.circleCY - (donut.measurements.divMiddleHeight/2) - donut.measurements.industryHeight + "px")
-        .style("background","#e5e5e5");
+        .style("top", donut.meas.industryStartLocation + "px")
+        .style("background","#e5e5e5")
+        .style("text-shadow","none")
+        .style("color","#e5e5e5");
 
-    d3.select('#hidden-link')
+    d3.select(donut.elem.industryLabelBack)
       .transition()
-        .style("bottom", "-30%");
+        .style("top", donut.meas.industryEndLocation + "px")
+        .style("height", donut.meas.industryHeight + "px")
+        .style("opacity", 0);
+
+    d3.select(donut.elem.industryLabelUp)
+      .transition()
+        .style("top", donut.meas.industryLabelUpStartLocation + "px")
+        .style("opacity", 0);
+
+    d3.select(donut.elem.industryLabelDown)
+      .transition()
+        .style("top", donut.meas.industryLabelDownStartLocation + "px")
+        .style("opacity", 0);
+
+    donut.elem.hiddenLink.style.opacity = 0;
+    donut.elem.hiddenLink.style.background = "#666";
   },
+
+
+
+  stopDefAction: function(evt){
+    evt.preventDefault();
+  },
+
+
 
   //main data object that holds industry names, percentage, and if we have article of not (also unused count property as of right now)
   data: [
@@ -193,49 +270,49 @@ var donut = {
       "industry":"Print",
       "count":53,
       "percent":37,
-      "article": 1
+      "article": "http://google.com"
     },
 
     {
-      "industry":"Agency",
+      "industry":"Advertising",
       "count":21,
       "percent":15,
-      "article": 1
+      "article": "http://yahoo.com"
     },
 
     {
       "industry":"Consumer Products",
       "count":22,
       "percent":15,
-      "article": 0
+      "article": false
     },
 
     {
       "industry":"Publishing",
       "count":13,
       "percent":9,
-      "article": 1
+      "article": "http://cnn.com"
     },
 
     {
       "industry":"Vendor",
       "count":13,
       "percent":9,
-      "article": 0
+      "article": false
     },
 
     {
       "industry":"Other",
       "count":11,
       "percent":7,
-      "article": 1
+      "article": "http://trello.com"
     },
 
     {
-      "industry":"Mobile/Software",
+      "industry":"Software",
       "count":8,
       "percent":6,
-      "article": 0
+      "article": false
     }
   ]
 }

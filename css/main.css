@@ -20,13 +20,14 @@
     background: #333; }
 
 .hidden.button.description {
-  width: 25px;
-  height: 25px;
   bottom: 93%;
+  height: 25px;
   left: 81%;
-  transition: bottom 1s, left .25s, height 1s, width 1s; }
+  transition: bottom 1s, left .25s, height 1s, width 1s;
+  width: 25px; }
 .hidden.top .title {
-  font-size: 2em; }
+  font-family: "Avenir-Roman", sans-serif;
+  font-size: 1.3em; }
 .hidden.top .directions {
   opacity: 0; }
 
@@ -88,6 +89,12 @@ body {
   margin: 0;
   padding: 0; }
 
+@font-face {
+  font-family: "Avenir-Roman";
+  src: url("../fonts/AvenirLTStd-Roman.otf"); }
+@font-face {
+  font-family: "Avenir-Black";
+  src: url("../fonts/AvenirLTStd-Black.otf"); }
 html,
 body {
   height: 100%;
@@ -95,12 +102,11 @@ body {
   width: 100%; }
 
 body {
-  font: 10px sans-serif;
-  background: #e5e5e5; }
+  background: #e5e5e5;
+  font-family: "Avenir-Roman", sans-serif; }
 
 .top {
   background: rgba(255, 255, 255, 0.9);
-  border-bottom: 4px solid #333;
   left: 0;
   padding: 10px 15px;
   position: absolute;
@@ -110,59 +116,83 @@ body {
   z-index: 1; }
   .top .directions {
     color: #333;
-    font-size: 2em;
+    text-indent: 1em;
+    font-size: 1.4em;
     line-height: 1.25;
+    padding: 8px;
     margin: 0;
+    text-align: justify;
     pointer-events: none;
-    transition: opacity .75s; }
+    transition: opacity .65s; }
   .top .title {
-    font-size: 4em;
+    font-family: "Avenir-Black", sans-serif;
+    font-size: 2em;
     margin: 5px 0px;
     transition: font-size .25s; }
 
 .industry-text {
   color: #fff;
-  font-size: 3em;
+  font-size: 1.75em;
   height: 34px;
   padding: 5px 0px;
   margin: 0;
+  opacity: 0;
   position: absolute;
   text-align: center;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
   width: 100%;
   z-index: -1; }
 
-#industry-label {
-  position: absolute;
-  font-size: 2em;
+.label {
+  color: white;
+  font-size: 1.1em;
   margin: 0;
+  opacity: 0;
+  padding: 5px 0px;
+  position: absolute;
   text-align: center;
-  width: 100%; }
+  width: 100%;
+  z-index: -2; }
+
+#label-back {
+  background-color: rgba(102, 102, 102, 0.75);
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: -3; }
 
 .text-middle {
   color: #333;
+  opacity: 0;
+  pointer-events: none;
   position: absolute;
-  pointer-events: none; }
+  transition: opacity .75s; }
   .text-middle .percent-number {
-    font-size: 5em;
-    margin: 0;
+    font-size: 3.5em;
+    margin: -6px;
     text-align: center; }
   .text-middle .percent-text {
-    font-size: 1.5em;
+    font-size: 1.1em;
     margin: 0;
     text-align: center; }
 
 #hidden-link {
-  border-radius: 7%;
-  bottom: -28%;
+  background-color: #666;
+  border-radius: 35px;
+  bottom: 3%;
   color: #fff;
-  font-size: 1.8em;
-  max-width: 150px;
-  padding: 3% 2%;
+  font-size: 1.35em;
+  height: 37px;
+  left: 30%;
+  opacity: 0;
+  padding-top: 10px;
   position: absolute;
   text-align: center;
   text-decoration: none;
   text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
-  width: 40%; }
+  transition: opacity .5s, background .5s;
+  width: 40%;
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
+  z-index: 100; }
 
 /*# sourceMappingURL=main.css.map */
