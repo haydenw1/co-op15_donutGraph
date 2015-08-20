@@ -1,3 +1,37 @@
+$top-background-color:rgba(255, 255, 255, .9);
+$description-top-font: "Avenir-Black", sans-serif;
+$directions-text-color: #333;
+
+.top {
+  background: $top-background-color;
+  left: 0;
+  padding: 10px 15px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: height 1s;
+  z-index: 1;
+
+  .directions {
+    color: $directions-text-color;
+    font-size: 1.4em;
+    line-height: 1.25;
+    margin: 0;
+    padding: 8px;
+    pointer-events: none;
+    text-align: justify;
+    text-indent: 1em;
+    transition: opacity .5s;
+  }
+
+  .title {
+    font-family: $description-top-font;
+    font-size: 2em;
+    margin: 5px 0px;
+    transition: font-size .25s;
+  }
+}
+
 .hidden {
 
   &.button.description {

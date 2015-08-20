@@ -17,7 +17,7 @@ var donut = {
       dM.width = document.documentElement.clientWidth,
       dM.height = document.documentElement.clientHeight,
 
-      dM.textBoxHeight = 66;
+      //dM.textBoxHeight = 66;
       dM.circleCY = dM.height / 2.6;
       dM.circleCX = dM.width / 2;
 
@@ -40,7 +40,7 @@ var donut = {
 
   calculateRadii: function(radius, thi){
     var ratio = donut.meas.width / donut.meas.height;
-    console.log(donut.meas.width);
+    //console.log(donut.meas.width);
     if(donut.meas.width < 600){
       if(radius == "outerRadius"){
         return donut.meas.width / 2 - (donut.meas.width / 25);
@@ -75,6 +75,8 @@ var donut = {
     dE.divMiddle.appendChild(dE.percentNumber);
     dE.divMiddle.appendChild(dE.percentText);
 
+    console.log(dE.divMiddle);
+    console.log(dE.divMiddle.clientHeight);
     dM.divMiddleHeight = dE.divMiddle.clientHeight;
     dM.divMiddleWidth = dE.divMiddle.clientWidth;
     dM.industryHeight = dE.industry.clientHeight;
@@ -146,6 +148,30 @@ var donut = {
       .attr("d", donut.d3tools.arc)
       .style("fill", function(d,i) { return donut.d3tools.color(i); });
 
+
+
+      ///////////
+
+    g.append("text")
+      .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
+      .attr("dy", ".35em")
+      .style("text-anchor", "middle")
+      .style("pointer-events", "none")
+      .style("font-size", function(d){
+        if(d.data.industry == "Software" || d.data.industry == "Consumer Products"){
+          return ".6em";
+        }else{
+          return ".75em";
+        }
+      })
+      .style("text-shadow", "0px 2px 2px rgba(0, 0, 0, 0.5)")
+      .style("font-family", "Verdana, sans-serif")
+      .attr("fill", "white")
+      .text(function(d) { return d.data.industry; });
+
+
+    ////////////
+
     g.selectAll("path")
       .on("mouseover", function(d){
         d3.select(this)
@@ -161,11 +187,30 @@ var donut = {
   },
 
 
-
   touchPath: function(d, touched){
     if(!description.hidden){
       description.hide();
     }
+
+    if(d.data.image){
+      d3.select('#background')
+        .attr("src", d.data.image)
+        .style("display", "block");
+    }else{
+      d3.select('#background').style("display", "none");
+    }
+
+
+
+    ////
+
+    d3.select(touched.parentNode.childNodes[1])
+      .transition()
+        .text(function(d) {
+          return "";
+        });
+
+    ///
 
     d3.select(donut.elem.industry)
       .text(d.data.industry);
@@ -173,32 +218,48 @@ var donut = {
     d3.select(donut.elem.percentNumber)
       .text(d.data.percent + "%");
 
-    donut.elem.divMiddle.style.opacity = 1;
+    d3.select(donut.elem.divMiddle)
+      .style("opacity", 0)
+      .transition().duration(500)
+        .style("opacity", 1);
+
+    //donut.elem.divMiddle.style.opacity = 1;
 
     d3.select(donut.elem.industry)
-      .style("background", "#e5e5e5")
-      .style("opacity", 1)
+      //.style("background", "#e5e5e5")
+      .style("opacity", 0)
       .style("text-shadow", "0px 2px 2px rgba(0, 0, 0, 0.5)")
       .style("top", donut.meas.industryStartLocation + "px")
       .transition().duration(750)
+        .style("opacity", 1)
         .style("background", touched.style.fill)
         .style("top", donut.meas.industryEndLocation + "px")
-        .each("end", function(){
+    //    .each("end", function(){
           console.log(this);
-          d3.select(donut.elem.industryLabelBack)
-            .transition()
-              .style("top", donut.meas.industryLabelUpEndLocation + "px")
-              .style("height", donut.meas.industryHeight + donut.meas.industryLabelUpHeight + donut.meas.industryLabelDownHeight + "px")
-              .style("opacity", 1);
-          d3.select(donut.elem.industryLabelUp)
-            .transition()
-              .style("top", donut.meas.industryLabelUpEndLocation + "px")
-              .style("opacity", 1);
-          d3.select(donut.elem.industryLabelDown)
-            .transition()
-              .style("top", donut.meas.industryLabelDownEndLocation + "px")
-              .style("opacity", 1);
-        });
+
+      d3.select(donut.elem.industryLabelBack)
+        .style("top", donut.meas.industryEndLocation + "px")
+        .style("height", donut.meas.industryHeight + "px")
+        .style("opacity", 0)
+        .transition().duration(750)
+          .style("top", donut.meas.industryLabelUpEndLocation + "px")
+          .style("height", donut.meas.industryHeight + donut.meas.industryLabelUpHeight + donut.meas.industryLabelDownHeight + "px")
+          .style("opacity", 1);
+
+      d3.select(donut.elem.industryLabelUp)
+        .style("top", donut.meas.industryLabelUpStartLocation + "px")
+        .style("opacity", 0)
+        .transition().duration(750)
+          .style("top", donut.meas.industryLabelUpEndLocation + "px")
+          .style("opacity", 1);
+
+      d3.select(donut.elem.industryLabelDown)
+        .style("top", donut.meas.industryLabelDownStartLocation + "px")
+        .style("opacity", 0)
+        .transition().duration(750)
+          .style("top", donut.meas.industryLabelDownEndLocation + "px")
+          .style("opacity", 1);
+      //  });
 
     if(d.data.article){
       var dehL = donut.elem.hiddenLink;  //holder var to make repeated element reference more readable
@@ -207,6 +268,8 @@ var donut = {
       dehL.style.opacity = 1;
       dehL.style.background = touched.style.fill;
       dehL.removeEventListener("click", donut.stopDefAction);
+
+
     }else{
       donut.elem.hiddenLink.addEventListener("click", donut.stopDefAction, false);
     }
@@ -218,7 +281,7 @@ var donut = {
     d3.select(touched.parentNode.childNodes[1])
       .transition()
         .text(function(d) {
-          return d.data.percent + "%";
+          return d.data.industry;
         });
 
     d3.select(touched)
@@ -227,14 +290,17 @@ var donut = {
           return donut.d3tools.color(donut.data.indexOf(d.data));
         });
 
-    donut.elem.divMiddle.style.opacity = 0;
+    d3.select(donut.elem.divMiddle)
+      .transition().duration(700)
+        .style("opacity", 0);
 
     d3.select(".industry-text")
       .transition().duration(750)
         .style("top", donut.meas.industryStartLocation + "px")
-        .style("background","#e5e5e5")
-        .style("text-shadow","none")
-        .style("color","#e5e5e5");
+        //.style("background","#e5e5e5")
+        //.style("text-shadow","none")
+        //.style("color","#e5e5e5");
+        .style("opacity", 0)
 
     d3.select(donut.elem.industryLabelBack)
       .transition()
@@ -270,7 +336,7 @@ var donut = {
       "industry":"Print",
       "count":53,
       "percent":37,
-      "article": "http://google.com"
+      "article": "http://google.com",
     },
 
     {
@@ -312,7 +378,8 @@ var donut = {
       "industry":"Software",
       "count":8,
       "percent":6,
-      "article": false
+      "article": false,
+      "image": "images/software.jpg"
     }
   ]
 }

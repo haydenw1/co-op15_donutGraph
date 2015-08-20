@@ -46,6 +46,8 @@ var description = {
       description.elem.topDiv = document.getElementsByClassName("top")[0];  //store description ('top') div reference
       description.elem.button = document.getElementsByClassName("button description")[0];  //store hide/show button reference
 
+      description.elem.buttonArrow = description.elem.button.childNodes[4];
+
       window.setTimeout(description.checkInteraction, 10000);  //timeout to call hide function after a specified time.
 
       description.elem.topDiv.style.height = description.meas.height / 2 + "px";  //sets initial height of top div to half the screen size.
@@ -93,11 +95,16 @@ var description = {
    *   are no longer visible, and moves the button to the top right area of the screen
    */
   hide: function(){
+    var directions = description.elem.topDiv.children[1];
+    directions.style.transition = "opacity .5s";
+
     description.elem.topDiv.style.height = "5%";
     description.elem.topDiv.setAttribute("class", "hidden top");
 
     description.elem.button.setAttribute("class", "hidden button description");
     description.elem.button.style.height = "25px";
+
+    description.elem.buttonArrow.style.transform = "rotate(" + 90 + "deg )";
 
     description.hidden = true;
     description.interaction = true;
@@ -112,17 +119,22 @@ var description = {
    *   so they are visible, and moves the button to the lower middle area of the div
    */
   show: function(){
-    var button = description.elem.button;
-    var topDiv = description.elem.topDiv;
+    //var button = description.elem.button;
+    //var topDiv = description.elem.topDiv;
 
-    var directions = topDiv.children[1];
-    var title = topDiv.children[0];
+    var directions = description.elem.topDiv.children[1];
+    directions.style.transition = "opacity 2.5s";
+    //var title = topDiv.children[0];
 
-    topDiv.style.height = description.meas.height / 2 + "px";
-    topDiv.setAttribute("class", "top");
+    description.elem.topDiv.style.height = description.meas.height / 2 + "px";
+    description.elem.topDiv.setAttribute("class", "top");
 
-    button.setAttribute("class", "button description");
-    button.style.height = buttons.measurements.buttonWidth;
+    description.elem.button.setAttribute("class", "button description");
+    description.elem.button.style.height = buttons.measurements.buttonWidth;
+
+    description.elem.buttonArrow.style.transform = "rotate(" + 270 + "deg )";
+
+    //directions.style.transition = "opacity 1s";
 
     description.hidden = false;
   }

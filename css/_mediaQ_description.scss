@@ -1,6 +1,10 @@
 /**
  * Fix #hidden-link height on short devices by adjusting padding
  */
+/*
+
+SHOULD BE IN mediaQ_donut.js
+
 @media screen
 and (max-device-height: 500px)
 and (-webkit-min-device-pixel-ratio: 2) {
@@ -8,6 +12,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
     padding: 2% 2% 0%;
   }
 }
+*/
 
 /**
  * Fixes button placement on iPhone 4
@@ -71,13 +76,24 @@ and (-webkit-min-device-pixel-ratio: 3) {
 and (min-device-width: 760px)
 and (-webkit-min-device-pixel-ratio: 2) {
 
-  a#hidden-link {
-    padding: 3% 2% 6%;
+  //SHOULD BE IN mediaQ_donut.js
+  //a#hidden-link {
+  //  padding: 3% 2% 6%;
+  //}
+
+
+  div.button.help { ///should move to BUTTONS own mediaQ.scss when i make it
+    font-size: 4.8em;
   }
 
   div.top {
+
+    .title{
+      font-size: 3em;
+    }
+
     p.directions {
-      font-size: 2.5em;
+      font-size: 2em;
       line-height: 1.5em;
       margin: 25px 0px;
     }
@@ -86,13 +102,17 @@ and (-webkit-min-device-pixel-ratio: 2) {
   div.hidden {
 
     &.top .title {
-      font-size: 4em;
+      font-size: 2em;
       margin: 5px 0px;
     }
 
     &.button.description {
       bottom: 93.75%;
       left: 85%;
+
+      svg polyline{
+        stroke-width: 7px;
+      }
     }
   }
 
