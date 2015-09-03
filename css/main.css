@@ -10,6 +10,7 @@
   padding: calc(2%);
   position: fixed;
   width: calc(11%);
+  max-width: 50px;
   z-index: 5; }
   .button.description {
     bottom: calc(50%);
@@ -88,45 +89,21 @@ and (-webkit-min-device-pixel-ratio: 2) {
 }
 */
 /**
- * Fixes button placement on iPhone 4
- */
-@media screen and (max-device-width: 320px) and (max-device-height: 480px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.hidden.button.description {
-    bottom: 92%; } }
-/**
- * Fixes initial description dimensions and text attributes on skinny screens
- */
-@media screen and (max-device-width: 360px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.top .title {
-    font-size: 3em; }
-
-  div.hidden.top {
-    padding: 12px 15px 3px; }
-    div.hidden.top .title {
-      font-size: 1.7em;
-      margin: 0px; } }
-/**
- * Fix for title margin for iPHone 6+ and similar width devices
- */
-@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
-  div.hidden.top .title {
-    margin: 9px 0px; }
-  div.hidden.button.description {
-    bottom: 93.25%; } }
-/**
  * iPad sized or similar tablet. Makes text and padding on elements greater
  */
 @media screen and (min-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.top .title {
-    font-size: 3em; }
-  div.top p.directions {
-    font-size: 2em;
-    line-height: 1.5em;
-    margin: 25px 0px; }
+  div.top {
+    padding: 10px 30px; }
+    div.top .title {
+      font-size: 3em; }
+    div.top p.directions {
+      font-size: 2em;
+      line-height: 1.5em;
+      margin: 25px 0px; }
 
   div.hidden.top .title {
     font-size: 2em;
-    margin: 5px 0px; }
+    margin: 5px 15px; }
   div.hidden.button.description {
     bottom: 93.75%;
     left: 85%; }
@@ -135,9 +112,53 @@ and (-webkit-min-device-pixel-ratio: 2) {
 
   p.industry-text {
     padding: 10px 0px; } }
+/**
+ * Fix for title margin for iPhone 6+ and similar width devices
+ */
+@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
+  div.hidden.top .title {
+    font-size: 1.4em; }
+  div.hidden.button.description {
+    bottom: 93.25%; } }
+/**
+ * Fixes initial description dimensions and text attributes on iPhone 5
+ */
+@media screen and (max-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
+  div.top .directions {
+    font-size: 1.15em; }
+  div.top .title {
+    font-size: 2em; }
+
+  div.hidden.top {
+    padding: 12px 15px 3px; }
+    div.hidden.top .title {
+      font-size: 1.1em;
+      margin: 0px; } }
+/**
+ * Fixes button placement on iPhone 4
+ */
+@media screen and (max-device-width: 320px) and (max-device-height: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+  div.top .title {
+    font-size: 1.3em; }
+
+  div.hidden.top {
+    padding: 5px 15px 1px; }
+  div.hidden.button.description {
+    bottom: 93%; } }
+/**
+ * iPad sized or similar tablet
+ */
 @media screen and (min-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
   div.button.help {
-    font-size: 4.8em; } }
+    font-size: 3.5em;
+    line-height: 1.0;
+    left: calc(92% - 80px); } }
+/**
+ * Fix for title margin for iPHone 6+ and similar width devices
+ */
+@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
+  div.button.help {
+    font-size: 2.65em; } }
 html,
 body {
   margin: 0;

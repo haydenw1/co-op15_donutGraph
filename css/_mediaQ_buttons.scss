@@ -1,8 +1,27 @@
+/**
+ * iPad sized or similar tablet
+ */
 @media screen
 and (min-device-width: 760px)
 and (-webkit-min-device-pixel-ratio: 2) {
 
-  div.button.help { ///should move to BUTTONS own mediaQ.scss when i make it
-    font-size: 4.8em;
+  div.button.help {
+    font-size: 3.5em;
+    line-height: 1.0;
+    left: calc(92% - 80px);
+  }
+}
+
+
+
+/**
+ * Fix for title margin for iPHone 6+ and similar width devices
+ */
+@media screen
+and (max-device-width: 415px)
+and (-webkit-min-device-pixel-ratio: 3) {
+
+  div.button.help {
+    font-size: 2.65em;
   }
 }

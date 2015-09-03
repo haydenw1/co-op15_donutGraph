@@ -14,59 +14,6 @@ and (-webkit-min-device-pixel-ratio: 2) {
 }
 */
 
-/**
- * Fixes button placement on iPhone 4
- */
-@media screen
-and (max-device-width: 320px)
-and (max-device-height: 480px)
-and (-webkit-min-device-pixel-ratio: 2) {
-  div.hidden.button.description{
-    bottom: 92%;
-  }
-}
-
-
-/**
- * Fixes initial description dimensions and text attributes on skinny screens
- */
-@media screen
-and (max-device-width: 360px)
-and (-webkit-min-device-pixel-ratio: 2) {
-  div.top .title {
-    font-size: 3em;
-  }
-
-  div.hidden{
-
-    &.top {
-      padding: 12px 15px 3px;
-
-      .title{
-        font-size: 1.7em;
-        margin: 0px;
-      }
-    }
-  }
-}
-
-/**
- * Fix for title margin for iPHone 6+ and similar width devices
- */
-@media screen
-and (max-device-width: 415px)
-and (-webkit-min-device-pixel-ratio: 3) {
-  div.hidden {
-
-    &.top .title {
-      margin: 9px 0px;
-    }
-
-    &.button.description{
-      bottom: 93.25%;
-    }
-  }
-}
 
 
 /**
@@ -76,12 +23,14 @@ and (-webkit-min-device-pixel-ratio: 3) {
 and (min-device-width: 760px)
 and (-webkit-min-device-pixel-ratio: 2) {
 
-  //SHOULD BE IN mediaQ_donut.js
+  //SHOULD BE IN mediaQ_donut.scss
   //a#hidden-link {
   //  padding: 3% 2% 6%;
   //}
 
   div.top {
+
+    padding: 10px 30px;
 
     .title {
       font-size: 3em;
@@ -98,7 +47,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
 
     &.top .title {
       font-size: 2em;
-      margin: 5px 0px;
+      margin: 5px 15px;
     }
 
     &.button.description {
@@ -115,3 +64,95 @@ and (-webkit-min-device-pixel-ratio: 2) {
     padding: 10px 0px;
   }
 }
+
+
+
+/**
+ * Fix for title margin for iPhone 6+ and similar width devices
+ */
+@media screen
+and (max-device-width: 415px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  div.top {
+
+    .title {
+      //font-size: 1.3em;
+    }
+  }
+
+  div.hidden {
+
+    &.top .title {
+      //margin: 9px 0px;
+      font-size: 1.4em;
+    }
+
+    &.button.description{
+      bottom: 93.25%;
+    }
+  }
+}
+
+
+
+/**
+ * Fixes initial description dimensions and text attributes on iPhone 5
+ */
+@media screen
+and (max-device-width: 320px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  div.top {
+
+    .directions {
+      font-size: 1.15em;
+    }
+
+    .title {
+      font-size: 2em;
+    }
+  }
+
+  div.hidden {
+
+    &.top {
+      padding: 12px 15px 3px;
+
+      .title {
+        font-size: 1.1em;
+        margin: 0px;
+      }
+    }
+  }
+}
+
+
+/**
+ * Fixes button placement on iPhone 4
+ */
+@media screen
+and (max-device-width: 320px)
+and (max-device-height: 480px)
+and (-webkit-min-device-pixel-ratio: 2) {
+  div.top {
+
+    .title {
+      font-size: 1.3em;
+    }
+  }
+
+  div.hidden {
+    &.top {
+      padding: 5px 15px 1px;
+    }
+
+    &.button.description {
+      bottom: 93%;
+    }
+  }
+}
+
+
+
+
+
+
