@@ -1,0 +1,8 @@
+@media screen
+and (min-device-width: 760px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+  div.button.help { ///should move to BUTTONS own mediaQ.scss when i make it
+    font-size: 4.8em;
+  }
+}

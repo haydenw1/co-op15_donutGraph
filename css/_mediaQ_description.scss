@@ -81,14 +81,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
   //  padding: 3% 2% 6%;
   //}
 
-
-  div.button.help { ///should move to BUTTONS own mediaQ.scss when i make it
-    font-size: 4.8em;
-  }
-
   div.top {
 
-    .title{
+    .title {
       font-size: 3em;
     }
 

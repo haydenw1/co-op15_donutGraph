@@ -36,6 +36,6 @@ var api = {
    */
   toggleNavUi: function(){
     adobeDPS.Gesture.toggleNavigationUI();
-    window.location = "navto://relative/last";
+    //window.location = "navto://relative/last";
   }
 }

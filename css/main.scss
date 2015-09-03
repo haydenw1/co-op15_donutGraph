@@ -3,6 +3,7 @@
 @import 'buttons';
 @import 'description';
 @import 'mediaQ_description';
+@import 'mediaQ_buttons';
 @import 'reset';
 
 //@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
@@ -44,6 +45,12 @@ body {
   z-index: -3;
 }
 
+.donut-text {
+  font-family: Verdana, sans-serif;
+  pointer-events: none;
+  text-anchor: middle;
+  text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+}
 
 .industry-text {
   color: $industry-text-color;

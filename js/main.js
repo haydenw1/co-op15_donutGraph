@@ -4,11 +4,17 @@ var donut = {
   elem: {},
   meas: {},
 
+  current: {
+    active: false
+  },
+
   helpDescription: {
     "1" : "Touch a colored section of the 'donut' graph",
     "2" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
     "3" : "If there is an industry related student co-op story, click the link that appears at the bottom of the screen to view the story"
   },
+
+  //open: false,
 
   setUp: function(){
     $( document ).ready(function(){
@@ -27,6 +33,9 @@ var donut = {
       dM.circleOutsideEdge = dM.circleCY + dM.outerRadius;
 
       dM.industryEndLocation = Math.round(dM.circleOutsideEdge + dM.height * (1 / 11));
+
+      api.setUp();
+      description.setUp();
 
       donut.makeElements();
       donut.makeTools();
@@ -148,15 +157,10 @@ var donut = {
       .attr("d", donut.d3tools.arc)
       .style("fill", function(d,i) { return donut.d3tools.color(i); });
 
-
-
-      ///////////
-
     g.append("text")
       .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
-      .style("text-anchor", "middle")
-      .style("pointer-events", "none")
+      .attr("class","donut-text")
       .style("font-size", function(d){
         if(d.data.industry == "Software" || d.data.industry == "Consumer Products"){
           return ".6em";
@@ -164,30 +168,53 @@ var donut = {
           return ".75em";
         }
       })
-      .style("text-shadow", "0px 2px 2px rgba(0, 0, 0, 0.5)")
-      .style("font-family", "Verdana, sans-serif")
       .attr("fill", "white")
       .text(function(d) { return d.data.industry; });
 
-
-    ////////////
-
     g.selectAll("path")
-      .on("mouseover", function(d){
-        d3.select(this)
-          .transition("linear")
-            .attr("d", donut.d3tools.secondaryArc);
+      .on("touchstart", function(d){
 
-        donut.touchPath(d, this);
+        if(donut.current.active && donut.current.touched === this){
+          donut.leavePath(d, this);
+        }else{
+          d3.select(this)
+            .transition("linear")
+              .attr("d", donut.d3tools.secondaryArc)
+          console.log("touched");
+          donut.touchPath(d, this);
+        }
       })
-      .on("mouseout", function(d){
-        d3.select(this).attr("d", donut.d3tools.arc);
-        donut.leavePath(d, this);
-      });
+      .on("touchstart.cancel", function() { d3.event.stopPropagation(); });
+
+    d3.select("body")
+      .on("touchstart", function(d){
+        if(donut.current.active){
+          donut.leavePath(donut.current.d, donut.current.touched);
+        }
+      })
+      //.on("mouseout", function(d){
+       // console.log("left")
+       // d3.select(this).attr("d", donut.d3tools.arc);
+       // donut.leavePath(d, this);
+      //});
   },
 
 
-  touchPath: function(d, touched){
+  touchPath: function(d, touched) {
+    console.log(d);
+    console.log(touched);
+    console.log(donut.current.active);
+
+    if(donut.current.active){
+      donut.leavePath(donut.current.d,donut.current.touched);
+    }
+
+    //if(donut.open){
+    //  donut.leavePath(donut.data, donut.open);
+    //}
+    //donut.open = touched;
+    //console.log(donut.open);
+
     if(!description.hidden){
       description.hide();
     }
@@ -200,7 +227,17 @@ var donut = {
       d3.select('#background').style("display", "none");
     }
 
+    //console.log(touched);
+    //donut.current.push(touched);
+    //console.log(donut.current);
 
+   /* console.log($(touched.parentNode).siblings());
+    var siblings = $(touched.parentNode).siblings();
+    for(var i = 0; i < siblings.length; i++){
+      console.log(siblings[i]);
+      //donut.leavePath(donut.data, siblings[i]);
+    }
+    console.log("break");*/
 
     ////
 
@@ -235,7 +272,7 @@ var donut = {
         .style("background", touched.style.fill)
         .style("top", donut.meas.industryEndLocation + "px")
     //    .each("end", function(){
-          console.log(this);
+          //console.log(this);
 
       d3.select(donut.elem.industryLabelBack)
         .style("top", donut.meas.industryEndLocation + "px")
@@ -260,6 +297,11 @@ var donut = {
           .style("top", donut.meas.industryLabelDownEndLocation + "px")
           .style("opacity", 1);
       //  });
+      //
+      //
+    donut.current.active = true;
+    donut.current.d = d;
+    donut.current.touched = touched;
 
     if(d.data.article){
       var dehL = donut.elem.hiddenLink;  //holder var to make repeated element reference more readable
@@ -278,6 +320,8 @@ var donut = {
 
 
   leavePath: function(d, touched){
+    console.log(touched);
+
     d3.select(touched.parentNode.childNodes[1])
       .transition()
         .text(function(d) {
@@ -285,10 +329,14 @@ var donut = {
         });
 
     d3.select(touched)
-      .transition()
-        .style("fill",function(d) {
+      //.transition()
+          .transition("linear")
+            .attr("d", donut.d3tools.arc);
+        /*.style("fill",function(d) {
           return donut.d3tools.color(donut.data.indexOf(d.data));
-        });
+        });*/
+
+    donut.current.active = false;
 
     d3.select(donut.elem.divMiddle)
       .transition().duration(700)
@@ -320,6 +368,8 @@ var donut = {
 
     donut.elem.hiddenLink.style.opacity = 0;
     donut.elem.hiddenLink.style.background = "#666";
+
+    //donut.open = false;
   },
 
 
