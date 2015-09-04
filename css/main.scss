@@ -1,10 +1,6 @@
 @import 'fonts';
 
-@import 'buttons';
-@import 'description';
-@import 'mediaQ_description';
-@import 'mediaQ_buttons';
-@import 'reset';
+
 
 //@import url(http://fonts.googleapis.com/css?family=Kaushan+Script);
 
@@ -47,9 +43,10 @@ body {
 
 .donut-text {
   font-family: Verdana, sans-serif;
+  font-size: .75em;
   pointer-events: none;
   text-anchor: middle;
-  text-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;
+  text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px;
 }
 
 .industry-text {
@@ -148,3 +145,10 @@ body {
     font-size: 1.25em;
   }
 }
+
+@import 'buttons';
+@import 'description';
+@import 'mediaQ_description';
+@import 'mediaQ_buttons';
+@import 'mediaQ_donut';
+@import 'reset';

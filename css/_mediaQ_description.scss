@@ -60,9 +60,9 @@ and (-webkit-min-device-pixel-ratio: 2) {
     }
   }
 
-  p.industry-text {
-    padding: 10px 0px;
-  }
+  //p.industry-text {
+  //  padding: 10px 0px;
+  //}
 }
 
 
@@ -131,7 +131,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
  */
 @media screen
 and (max-device-width: 320px)
-and (max-device-height: 480px)
+and (max-device-height: 530px)
 and (-webkit-min-device-pixel-ratio: 2) {
   div.top {
 

@@ -32,7 +32,8 @@ var donut = {
 
       dM.circleOutsideEdge = dM.circleCY + dM.outerRadius;
 
-      dM.industryEndLocation = Math.round(dM.circleOutsideEdge + dM.height * (1 / 11));
+      console.log(dM.height);
+      dM.industryEndLocation = dM.height < 500 ? Math.round(dM.circleOutsideEdge + dM.height * (2 / 29)) : Math.round(dM.circleOutsideEdge + dM.height * (1 / 11));
 
       api.setUp();
       description.setUp();
@@ -163,9 +164,8 @@ var donut = {
       .attr("class","donut-text")
       .style("font-size", function(d){
         if(d.data.industry == "Software" || d.data.industry == "Consumer Products"){
-          return ".6em";
-        }else{
-          return ".75em";
+          return donut.specialSizing();
+          //return ".6em";
         }
       })
       .attr("fill", "white")
@@ -376,6 +376,24 @@ var donut = {
 
   stopDefAction: function(evt){
     evt.preventDefault();
+  },
+
+
+  specialSizing: function(){
+    console.log(donut.meas.width);
+    if(donut.meas.width > 750){
+      return ".9em";
+    }
+
+    if(donut.meas.width > 400){
+      return ".6em";
+    }
+
+    if(donut.meas.width < 360){
+      return ".5em";
+    }
+
+    return ".55em";
   },
 
 
