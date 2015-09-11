@@ -1,0 +1,35 @@
+.help-text {
+  background: rgba(255, 255, 255, .9);
+  bottom: 0;
+  height: 0%;
+  position: absolute;
+  transition: height 1s;
+  width: 100%;
+}
+
+.help-description {
+  font-size: 1.1em;
+  padding: 0% 5%;
+  margin: 0px;
+
+  ol {
+    float: left;
+  }
+
+  li {
+    margin-bottom: 15px;
+        float: left;
+    width: 70%;
+    clear: left;
+  }
+
+  img {
+    width: 20%;
+    clear: right;
+    float: right;
+  }
+}
+
+.help-title {
+  padding-left: 15px;
+}

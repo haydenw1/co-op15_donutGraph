@@ -20,13 +20,9 @@ body {
 
 #background {
   display: none;
-  height: calc(100% + 30px);
-  left: -15px;
+  height: 100%;
   opacity: .5;
   position: absolute;
-  top: -15px;
-  -webkit-filter: blur(5px);
-  width: calc(100% + 30px);
   z-index: -3; }
 
 .donut-text {
@@ -102,6 +98,33 @@ body {
   z-index: 100; }
   #hidden-link span {
     font-size: 1.25em; }
+
+.help-text {
+  background: rgba(255, 255, 255, 0.9);
+  bottom: 0;
+  height: 0%;
+  position: absolute;
+  transition: height 1s;
+  width: 100%; }
+
+.help-description {
+  font-size: 1.1em;
+  padding: 0% 5%;
+  margin: 0px; }
+  .help-description ol {
+    float: left; }
+  .help-description li {
+    margin-bottom: 15px;
+    float: left;
+    width: 70%;
+    clear: left; }
+  .help-description img {
+    width: 20%;
+    clear: right;
+    float: right; }
+
+.help-title {
+  padding-left: 15px; }
 
 @font-face {
   font-family: "Avenir-Book";

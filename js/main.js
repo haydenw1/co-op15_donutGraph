@@ -8,11 +8,20 @@ var donut = {
     active: false
   },
 
-  helpDescription: {
-    "1" : "Touch a colored section of the 'donut' graph",
-    "2" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
-    "3" : "If there is an industry related student co-op story, click the link that appears at the bottom of the screen to view the story"
-  },
+  helpDescription: [
+    {
+      "text" : "Touch a colored section of the 'donut' graph",
+      "image" : "images/help_white.png"
+    },
+    {
+      "text" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
+      "image" : "images/back_e84a0c.png"
+    },
+    {
+      "text" : "If there is an industry related student co-op story, click the link that appears at the bottom of the screen to view the story",
+      "image" : "images/help_white.png"
+    }
+  ],
 
   //open: false,
 
@@ -37,6 +46,7 @@ var donut = {
 
       api.setUp();
       description.setUp();
+      help.setUp(donut);
 
       donut.makeElements();
       donut.makeTools();
@@ -191,6 +201,14 @@ var donut = {
         if(donut.current.active){
           donut.leavePath(donut.current.d, donut.current.touched);
         }
+
+        if(!description.hidden){
+          description.hide();
+        }
+
+        if(!help.hidden){
+          help.hide();
+        }
       })
       //.on("mouseout", function(d){
        // console.log("left")
@@ -217,6 +235,10 @@ var donut = {
 
     if(!description.hidden){
       description.hide();
+    }
+
+    if(!help.hidden){
+      help.hide();
     }
 
     if(d.data.image){
@@ -405,41 +427,47 @@ var donut = {
       "count":53,
       "percent":37,
       "article": "http://google.com",
+      "image": "images/print_1.jpg"
     },
 
     {
       "industry":"Advertising",
       "count":21,
       "percent":15,
-      "article": "http://yahoo.com"
+      "article": "http://yahoo.com",
+      "image": "images/advertising_1.jpg"
     },
 
     {
       "industry":"Consumer Products",
       "count":22,
       "percent":15,
-      "article": false
+      "article": false,
+      "image": "images/consumer_products_1.jpg"
     },
 
     {
       "industry":"Publishing",
       "count":13,
       "percent":9,
-      "article": "http://cnn.com"
+      "article": "http://cnn.com",
+      "image": "images/publishing.jpg"
     },
 
     {
       "industry":"Vendor",
       "count":13,
       "percent":9,
-      "article": false
+      "article": false,
+      "image": "images/vendor.jpg"
     },
 
     {
       "industry":"Other",
       "count":11,
       "percent":7,
-      "article": "http://trello.com"
+      "article": "http://trello.com",
+      "image": "images/other.jpg"
     },
 
     {

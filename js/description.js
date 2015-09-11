@@ -67,7 +67,8 @@ var description = {
           }else{  //if the description is currently showing
             description.hide();  //hide the description
           }
-        });
+        })
+        .on("touchstart.cancel", function() { d3.event.stopPropagation(); });
     });
   },
 
@@ -121,6 +122,14 @@ var description = {
   show: function(){
     //var button = description.elem.button;
     //var topDiv = description.elem.topDiv;
+
+    if(donut.current.active){
+      donut.leavePath(donut.current.d, donut.current.touched);
+    }
+
+    if(!help.hidden){
+      help.hide();
+    }
 
     var directions = description.elem.topDiv.children[1];
     directions.style.transition = "opacity 2.5s";

@@ -46,7 +46,7 @@ var buttons = {
     buttonNav.on("touchstart", function(){d3.select(this).attr("id", "active");})
              .on("touchend",   function(){d3.select(this).attr("id", null);});
 
-    buttonHelp.on("touchstart", function(){d3.select(this).attr("id", "active");})
-              .on("touchend",   function(){d3.select(this).attr("id", null);});
+    //buttonHelp.on("touchstart", function(){d3.select(this).attr("id", "active");})
+    //          .on("touchend",   function(){d3.select(this).attr("id", null);});
   }
 }
