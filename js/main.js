@@ -11,7 +11,7 @@ var donut = {
   helpDescription: [
     {
       "text" : "Touch a colored section of the 'donut' graph",
-      "image" : "images/help_white.png"
+      "image" : "images/test.gif"
     },
     {
       "text" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",

@@ -107,6 +107,19 @@ body {
   transition: height 1s;
   width: 100%; }
 
+.help-close {
+  background-color: rgba(0, 255, 255, 0.7);
+  height: 60px;
+  position: fixed;
+  right: 0px;
+  width: 60px; }
+  .help-close:active {
+    background-color: rgba(100, 100, 100, 0.7); }
+  .help-close p {
+    font-size: 300%;
+    padding: 0px 14px;
+    margin: 0px; }
+
 .help-description {
   font-size: 1.1em;
   padding: 0% 5%;
