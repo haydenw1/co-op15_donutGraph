@@ -8,6 +8,11 @@ var donut = {
     active: false
   },
 
+  description: {
+    "title": "Co-op Industry Visualization",
+    "text": "Touch a section of the donut graph to view the industries where our students have had a co-op, as well as the percentage of student who get a co-op in that industry."
+  },
+
   helpDescription: [
     {
       "text" : "Touch a colored section of the 'donut' graph",

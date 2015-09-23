@@ -103,22 +103,21 @@ body {
   background: rgba(255, 255, 255, 0.9);
   bottom: 0;
   height: 0%;
-  position: absolute;
+  overflow-y: scroll;
+  position: fixed;
   transition: height 1s;
   width: 100%; }
 
 .help-close {
-  background-color: rgba(0, 255, 255, 0.7);
   height: 60px;
+  font-size: 300%;
   position: fixed;
+  margin: 0px 10px 0px 0px;
   right: 0px;
+  text-align: center;
   width: 60px; }
   .help-close:active {
-    background-color: rgba(100, 100, 100, 0.7); }
-  .help-close p {
-    font-size: 300%;
-    padding: 0px 14px;
-    margin: 0px; }
+    color: rgba(100, 100, 100, 0.7); }
 
 .help-description {
   font-size: 1.1em;
@@ -128,16 +127,16 @@ body {
     float: left; }
   .help-description li {
     margin-bottom: 15px;
-    float: left;
-    width: 70%;
-    clear: left; }
+    width: 100%; }
   .help-description img {
-    width: 20%;
-    clear: right;
-    float: right; }
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 25px; }
 
 .help-title {
-  padding-left: 15px; }
+  padding-left: 15px;
+  margin: 15px 0px 5px 0px; }
 
 @font-face {
   font-family: "Avenir-Book";
@@ -177,7 +176,7 @@ body {
   .button#active {
     background: #333; }
 
-.top {
+.description-holder {
   background: rgba(255, 255, 255, 0.9);
   left: 0;
   padding: 10px 15px;
@@ -185,8 +184,9 @@ body {
   right: 0;
   top: 0;
   transition: height 1s;
-  z-index: 1; }
-  .top .directions {
+  z-index: 1;
+  overflow: hidden; }
+  .description-holder .text {
     color: #333;
     font-size: 1.4em;
     line-height: 1.25;
@@ -195,24 +195,28 @@ body {
     pointer-events: none;
     text-align: justify;
     text-indent: 1em;
-    transition: opacity .5s; }
-  .top .title {
+    transition: opacity .3s; }
+  .description-holder .title {
     font-family: "Avenir-Black", sans-serif;
     font-size: 2em;
     margin: 5px 0px;
-    transition: font-size .25s; }
+    transition: font-size .3s; }
 
-.hidden.button.description {
-  bottom: 93%;
-  height: 25px;
-  left: 81%;
-  transition: bottom 1s, left .25s, height 1s, width 1s;
-  width: 25px; }
-.hidden.top .title {
+.hidden.description-holder .title {
   font-family: "Avenir-Roman", sans-serif;
   font-size: 1.3em; }
-.hidden.top .directions {
-  opacity: 0; }
+
+.description-close {
+  bottom: 0px;
+  font-size: 300%;
+  height: 60px;
+  position: absolute;
+  margin: 0px 10px 0px 0px;
+  right: 0px;
+  text-align: center;
+  width: 60px; }
+  .description-close:active {
+    color: rgba(100, 100, 100, 0.7); }
 
 /**
  * Fix #hidden-link height on short devices by adjusting padding
