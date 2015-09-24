@@ -1,0 +1,84 @@
+$button-background-color: #000;
+
+.help-text {
+  background: rgba(255, 255, 255, .9);
+  bottom: 0;
+  height: 0%;
+  overflow-y: scroll;
+  position: fixed;
+  transition: height 1s;
+  width: 100%;
+}
+
+.help-close {
+    height: 60px;
+    font-size: 300%;
+    position: fixed;
+    margin: 0px 10px 0px 0px;
+    right: 0px;
+    text-align: center;
+    width: 60px;
+
+    &:active {
+      color: rgba(100, 100, 100, 0.7);
+    }
+}
+
+.help-description {
+  font-size: 1.1em;
+  padding: 0% 5%;
+  margin: 0px;
+
+  ol {
+    float: left;
+  }
+
+  li {
+    margin-bottom: 15px;
+        //float: left;
+    width: 85%;
+    //clear: left;
+  }
+
+  img {
+    width: 50%;
+    margin: 0 auto;
+    //clear: right;
+    //float: right;
+    display: block;
+    margin-bottom: 25px;
+  }
+}
+
+.help-title {
+  padding-left: 15px;
+  margin: 15px 0px 5px 0px;
+}
+
+
+//////////////////for the button//////////////////
+
+.button {
+  background-color: $button-background-color; //probably will be changed when using Olivia's buttons
+  border-radius: 100%;
+  bottom: calc(2.5%);
+  color: #fff;                          //will be changed when using Olivia's buttons
+  left: calc(8%);
+  padding: calc(2%);                    //will be changed when using Olivia's buttons
+  position: fixed;
+  width: calc(11%);
+  max-width: 50px;
+  z-index: 5;
+
+  &.help{
+    font-family: Avenir-Book;
+    font-size: 2.4em;
+    left: calc(77%); //position of help button at current width percentage
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  &#active {
+    background: rgba(0,0,0,.85); //background change on touch event
+  }
+}

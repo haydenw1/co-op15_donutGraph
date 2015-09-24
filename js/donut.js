@@ -55,8 +55,8 @@ var donut = {
 
       donut.makeElements();
       donut.makeTools();
-      donut.makeGVis();
-      donut.useData();
+      donut.makeVis();
+      donut.addListeners();
       buttons.createButtons();
     });
   },
@@ -151,18 +151,25 @@ var donut = {
 
 
 
-  makeGVis: function(){
-    donut.elem.gVis = d3.select("body")
+  makeVis: function(){
+    //'svg' element that is the same size as the screen - holds all vis elements
+    donut.elem.svg = d3.select("body")
       .append("svg")
         .attr("width", donut.meas.width)
-        .attr("height", donut.meas.height)
-      .append("g")
+        .attr("height", donut.meas.height);
+
+    //'g' element to group all donut vis elements and center circle
+    donut.elem.gVis = donut.elem.svg.append("g")
         .attr("transform", "translate(" + donut.meas.width / 2 + "," + donut.meas.circleCY + ")");
-  },
 
+    //center circle that appears in the middle of the donut vis
+    donut.elem.centerCircle = donut.elem.svg.append("circle")
+      .attr("cx", donut.meas.circleCX)
+      .attr("cy", donut.meas.circleCY)
+      .attr("r", donut.meas.innerRadius)
+      .attr("fill","rgba(255,255,255,0)");
 
-
-  useData: function(){
+    //makes pie sections
     var g = donut.elem.gVis.selectAll(".arc")
       .data(donut.d3tools.pie(donut.data))
       .enter()
@@ -171,47 +178,47 @@ var donut = {
 
     g.append("path")
       .attr("d", donut.d3tools.arc)
-      .style("fill", function(d,i) { return donut.d3tools.color(i); });
+      .style("fill", function(d,i) { return donut.d3tools.color(i); })
+      .on("touchstart", function(d) {
+        if (donut.current.active && donut.current.touched === this) {
+          donut.leavePath(d, this);
+        } else {
+          d3.select(this)
+            .transition("linear")
+              .attr("d", donut.d3tools.secondaryArc)
+
+          donut.touchPath(d, this);
+        }
+      })
+      .on("touchstart.cancel", function() { d3.event.stopPropagation(); });
 
     g.append("text")
       .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
       .attr("dy", ".35em")
       .attr("class","donut-text")
       .style("font-size", function(d){
-        if(d.data.industry == "Software" || d.data.industry == "Consumer Products"){
+        if(d.data.industry === "Software" || d.data.industry === "Consumer Products"){
           return donut.specialSizing();
           //return ".6em";
         }
       })
       .attr("fill", "white")
       .text(function(d) { return d.data.industry; });
+    },
 
-    g.selectAll("path")
-      .on("touchstart", function(d){
 
-        if(donut.current.active && donut.current.touched === this){
-          donut.leavePath(d, this);
-        }else{
-          d3.select(this)
-            .transition("linear")
-              .attr("d", donut.d3tools.secondaryArc)
-          console.log("touched");
-          donut.touchPath(d, this);
-        }
-      })
-      .on("touchstart.cancel", function() { d3.event.stopPropagation(); });
-
+  addListeners: function(){
     d3.select("body")
-      .on("touchstart", function(d){
-        if(donut.current.active){
+      .on ("touchstart", function(d) {
+        if (donut.current.active) {
           donut.leavePath(donut.current.d, donut.current.touched);
         }
 
-        if(!description.hidden){
+        if (!description.hidden) {
           description.hide();
         }
 
-        if(!help.hidden){
+        if (!help.hidden) {
           help.hide();
         }
       })
@@ -224,12 +231,23 @@ var donut = {
 
 
   touchPath: function(d, touched) {
-    console.log(d);
+    console.log(d.data.industry);
     console.log(touched);
     console.log(donut.current.active);
 
-    if(donut.current.active){
+    if (donut.current.active) {
       donut.leavePath(donut.current.d,donut.current.touched);
+    }
+
+    if (d.data.industry === "Other") {
+      console.log(d3.select(".label up"));
+      donut.elem.industryLabelUp.innerHTML = "...find a co-op in an";
+      donut.elem.industryLabelBack.style.background = "#000";
+      //d3.select("#other-switch").html("...find a co-op in an");
+      //d3.select("")
+    }else {
+      donut.elem.industryLabelUp.innerHTML = "...find a co-op in the";
+      donut.elem.industryLabelBack.style.background = "rgba(0, 0, 0, 0.75)";
     }
 
     //if(donut.open){
@@ -289,6 +307,11 @@ var donut = {
 
     //donut.elem.divMiddle.style.opacity = 1;
 
+
+    donut.elem.centerCircle
+      .transition().duration(700)
+        .attr("fill","rgba(255,255,255,.80)");
+
     d3.select(donut.elem.industry)
       //.style("background", "#e5e5e5")
       .style("opacity", 0)
@@ -301,28 +324,28 @@ var donut = {
     //    .each("end", function(){
           //console.log(this);
 
-      d3.select(donut.elem.industryLabelBack)
-        .style("top", donut.meas.industryEndLocation + "px")
-        .style("height", donut.meas.industryHeight + "px")
-        .style("opacity", 0)
-        .transition().duration(750)
-          .style("top", donut.meas.industryLabelUpEndLocation + "px")
-          .style("height", donut.meas.industryHeight + donut.meas.industryLabelUpHeight + donut.meas.industryLabelDownHeight + "px")
-          .style("opacity", 1);
+    d3.select(donut.elem.industryLabelBack)
+      .style("top", donut.meas.industryEndLocation + "px")
+      .style("height", donut.meas.industryHeight + "px")
+      .style("opacity", 0)
+      .transition().duration(750)
+        .style("top", donut.meas.industryLabelUpEndLocation + "px")
+        .style("height", donut.meas.industryHeight + donut.meas.industryLabelUpHeight + donut.meas.industryLabelDownHeight + "px")
+        .style("opacity", 1);
 
-      d3.select(donut.elem.industryLabelUp)
-        .style("top", donut.meas.industryLabelUpStartLocation + "px")
-        .style("opacity", 0)
-        .transition().duration(750)
-          .style("top", donut.meas.industryLabelUpEndLocation + "px")
-          .style("opacity", 1);
+    d3.select(donut.elem.industryLabelUp)
+      .style("top", donut.meas.industryLabelUpStartLocation + "px")
+      .style("opacity", 0)
+      .transition().duration(750)
+        .style("top", donut.meas.industryLabelUpEndLocation + "px")
+        .style("opacity", 1);
 
-      d3.select(donut.elem.industryLabelDown)
-        .style("top", donut.meas.industryLabelDownStartLocation + "px")
-        .style("opacity", 0)
-        .transition().duration(750)
-          .style("top", donut.meas.industryLabelDownEndLocation + "px")
-          .style("opacity", 1);
+    d3.select(donut.elem.industryLabelDown)
+      .style("top", donut.meas.industryLabelDownStartLocation + "px")
+      .style("opacity", 0)
+      .transition().duration(750)
+        .style("top", donut.meas.industryLabelDownEndLocation + "px")
+        .style("opacity", 1);
       //  });
       //
       //
@@ -364,6 +387,10 @@ var donut = {
         });*/
 
     donut.current.active = false;
+
+    donut.elem.centerCircle
+      .transition().duration(700)
+        .attr("fill","rgba(255,255,255,0)");
 
     d3.select(donut.elem.divMiddle)
       .transition().duration(700)
@@ -432,15 +459,15 @@ var donut = {
       "count":53,
       "percent":37,
       "article": "http://google.com",
-      "image": "images/print_1.jpg"
+      "image": "images/print.jpg"
     },
 
     {
       "industry":"Advertising",
       "count":21,
       "percent":15,
-      "article": "http://yahoo.com",
-      "image": "images/advertising_1.jpg"
+      "article": false,
+      "image": "images/advertising.jpg"
     },
 
     {
@@ -448,14 +475,14 @@ var donut = {
       "count":22,
       "percent":15,
       "article": false,
-      "image": "images/consumer_products_1.jpg"
+      "image": "images/consumer.jpg"
     },
 
     {
       "industry":"Publishing",
       "count":13,
       "percent":9,
-      "article": "http://cnn.com",
+      "article": false,
       "image": "images/publishing.jpg"
     },
 
@@ -471,7 +498,7 @@ var donut = {
       "industry":"Other",
       "count":11,
       "percent":7,
-      "article": "http://trello.com",
+      "article": false,
       "image": "images/other.jpg"
     },
 
