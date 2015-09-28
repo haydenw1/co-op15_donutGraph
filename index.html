@@ -8,6 +8,9 @@
 
     <link type="text/css" rel="stylesheet" href="css/donut.css">
 
+    <!--<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="rdb/remoteDebugger.js"></script> ******** HAVE TO COMMENT IN/OUT 'rdb.emitClientInfo()' IN [DONUT.JS] ON LINE 35 ******* -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script> <!-- gets jquery -->
     <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script> <!-- gets jquery -->
@@ -29,7 +32,9 @@
     </div>
 
     <p class="label up" id="other-switch">...find a co-op in the</p>
-    <div id="label-back"><p class="industry-text">Other</p></div>
+    <div id="label-back">
+
+    </div>
     <p class="label down">industry</p>
 
 		<a id="hidden-link" href="#">
@@ -47,7 +52,7 @@
           <g>
             <line fill="none" stroke="#FFFFFF" stroke-width="2" stroke-miterlimit="10" x1="29" y1="46" x2="29" y2="4"/>
             <g>
-              <polygon fill="#FFFFFF" points="36.4,40.5 29.4,43.5 22.5,40.5 29.4,57         "/>
+              <polygon fill="#FFFFFF" points="36.4,40.5 29.4,43.5 22.5,40.5 29.4,57"/>
             </g>
           </g>
         </g>
@@ -56,6 +61,7 @@
     </div>
 
     <div class="button help">?</div>
+    <p class="industry-text">Other</p>
 
 		<script>
       donut.setUp();

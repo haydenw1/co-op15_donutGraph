@@ -1,48 +1,32 @@
-  @font-face { //make sure georgia is included for help button
+  /*@font-face {
     font-family: "Avenir-Book";
     src: url("../fonts/AvenirLTStd-Book.otf");
-  }
+  }*/
 
-$button-background-color: #000;
-
+$background-color: #000;
+//$border-color: #fff;
 .button {
-  background-color: $button-background-color; //probably will be changed when using Olivia's buttons
+  background-color: $background-color; //probably will be changed when using Olivia's buttons
   border-radius: 100%;
-  bottom: calc(2.5%);
+  //border: 2px solid $border-color;
+  bottom: 2.5%;
   color: #fff;                          //will be changed when using Olivia's buttons
-  left: calc(8%);
-  padding: calc(2%);                    //will be changed when using Olivia's buttons
+  left: 8%;
+  padding: 2%;                    //will be changed when using Olivia's buttons
   position: fixed;
-  width: calc(11%);
+  width: 11%;
   max-width: 50px;
   z-index: 5;
 
-  &.description {
-    bottom: calc(50%);
-    left: calc(44%);
-    transition: bottom 1s, left 1s, height 1s, width 1s;
-    background-color: rgba(255,255,255,0);
-
-    svg {
-      transform: rotate(270deg);
-      transition: transform .5s;
-
-      polyline{
-        stroke: #333;
-        stroke-width: 4px;
-      }
-    }
-  }
-
   &.nav {
     svg {
-      width: 90%;
-      height: 90%;
-      margin: 10% 6% 4% 5%;
+      width: 85%;
+      height: 85%;
+      margin: 12% 7% 3% 8%;
     }
   }
 
   &#active {
-    background: #333; //background change on touch event
+    background: rgba(0,0,0,.85); //background change on touch event
   }
 }

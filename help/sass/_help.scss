@@ -1,7 +1,9 @@
-$button-background-color: #000;
+$background-color: #000;
+//$border-color: #fff;
 
 .help-text {
-  background: rgba(255, 255, 255, .9);
+  background: $background-color;//rgba(255, 255, 255, .9);
+  color: white;
   bottom: 0;
   height: 0%;
   overflow-y: scroll;
@@ -10,22 +12,29 @@ $button-background-color: #000;
   width: 100%;
 }
 
+.help-close-holder {
+  position: absolute;
+  right: 0px;
+  //bottom:0px;
+  width: 15vw;
+  height: 9vh;
+}
+
 .help-close {
-    height: 60px;
-    font-size: 300%;
-    position: fixed;
-    margin: 0px 10px 0px 0px;
+    font-size: 10vw;
+    position: absolute;
+    margin: 0px 4vw 2vw 4vw;
     right: 0px;
     text-align: center;
-    width: 60px;
+    display: none;
 
-    &:active {
-      color: rgba(100, 100, 100, 0.7);
-    }
+    //&:active {
+     // color: rgba(100, 100, 100, 0.7);
+    //}
 }
 
 .help-description {
-  font-size: 1.1em;
+  font-size: 4.5vw;
   padding: 0% 5%;
   margin: 0px;
 
@@ -52,33 +61,66 @@ $button-background-color: #000;
 
 .help-title {
   padding-left: 15px;
+  font-size: 6vw;
   margin: 15px 0px 5px 0px;
 }
 
 
 //////////////////for the button//////////////////
 
+//copy of the button class from buttons.js (so that help.js and this scss could be used independently if needed)
+
 .button {
-  background-color: $button-background-color; //probably will be changed when using Olivia's buttons
+  background-color: $background-color; //probably will be changed when using Olivia's buttons
   border-radius: 100%;
-  bottom: calc(2.5%);
+  //border: 2px solid $border-color;
+  bottom: 2.5%;
   color: #fff;                          //will be changed when using Olivia's buttons
-  left: calc(8%);
-  padding: calc(2%);                    //will be changed when using Olivia's buttons
+  left: 8%;
+  padding: 2%;                    //will be changed when using Olivia's buttons
   position: fixed;
-  width: calc(11%);
+  width: 11%;
   max-width: 50px;
   z-index: 5;
 
-  &.help{
+  &.help {
     font-family: Avenir-Book;
     font-size: 2.4em;
-    left: calc(77%); //position of help button at current width percentage
-    line-height: 1.2;
+    left: 77%; //position of help button at current width percentage
+    line-height: 1.1;
     text-align: center;
   }
 
   &#active {
     background: rgba(0,0,0,.85); //background change on touch event
+  }
+}
+
+/**
+ * iPad sized or similar tablet
+ */
+@media screen
+and (min-device-width: 599px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+  div.button.help {
+    font-size: 3.5em;
+    line-height: 1.0;
+    left: calc(92% - 80px);
+  }
+}
+
+
+
+/**
+ * Fix for title margin for iPHone 6+ and similar width devices
+ */
+@media screen
+and (max-device-width: 415px)
+and (-webkit-min-device-pixel-ratio: 3) {
+
+  div.button.help {
+    font-size: 2.65em;
+    line-height: 1.2;
   }
 }

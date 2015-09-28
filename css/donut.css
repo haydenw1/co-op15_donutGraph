@@ -1,3 +1,159 @@
+.help-text {
+  background: #000;
+  color: white;
+  bottom: 0;
+  height: 0%;
+  overflow-y: scroll;
+  position: fixed;
+  transition: height 1s;
+  width: 100%; }
+
+.help-close-holder {
+  position: absolute;
+  right: 0px;
+  width: 15vw;
+  height: 9vh; }
+
+.help-close {
+  font-size: 10vw;
+  position: absolute;
+  margin: 0px 4vw 2vw 4vw;
+  right: 0px;
+  text-align: center;
+  display: none; }
+
+.help-description {
+  font-size: 4.5vw;
+  padding: 0% 5%;
+  margin: 0px; }
+  .help-description ol {
+    float: left; }
+  .help-description li {
+    margin-bottom: 15px;
+    width: 85%; }
+  .help-description img {
+    width: 50%;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 25px; }
+
+.help-title {
+  padding-left: 15px;
+  font-size: 6vw;
+  margin: 15px 0px 5px 0px; }
+
+.button {
+  background-color: #000;
+  border-radius: 100%;
+  bottom: 2.5%;
+  color: #fff;
+  left: 8%;
+  padding: 2%;
+  position: fixed;
+  width: 11%;
+  max-width: 50px;
+  z-index: 5; }
+  .button.help {
+    font-family: Avenir-Book;
+    font-size: 2.4em;
+    left: 77%;
+    line-height: 1.1;
+    text-align: center; }
+  .button#active {
+    background: rgba(0, 0, 0, 0.85); }
+
+/**
+ * iPad sized or similar tablet
+ */
+@media screen and (min-device-width: 599px) and (-webkit-min-device-pixel-ratio: 2) {
+  div.button.help {
+    font-size: 3.5em;
+    line-height: 1.0;
+    left: calc(92% - 80px); } }
+/**
+ * Fix for title margin for iPHone 6+ and similar width devices
+ */
+@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
+  div.button.help {
+    font-size: 2.65em;
+    line-height: 1.2; } }
+/*@font-face {
+  font-family: "Avenir-Book";
+  src: url("../fonts/AvenirLTStd-Book.otf");
+}*/
+.button {
+  background-color: #000;
+  border-radius: 100%;
+  bottom: 2.5%;
+  color: #fff;
+  left: 8%;
+  padding: 2%;
+  position: fixed;
+  width: 11%;
+  max-width: 50px;
+  z-index: 5; }
+  .button.nav svg {
+    width: 85%;
+    height: 85%;
+    margin: 12% 7% 3% 8%; }
+  .button#active {
+    background: rgba(0, 0, 0, 0.85); }
+
+.description-holder {
+  background: #000;
+  color: #fff;
+  left: 0;
+  padding: 1.5vh 4vw;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: height 1s;
+  z-index: 1;
+  overflow: hidden; }
+  .description-holder .text {
+    color: #fff;
+    font-size: 4.5vw;
+    line-height: 1.75;
+    margin-top: 3vw;
+    padding: 8px;
+    pointer-events: none;
+    text-indent: 4.5vw;
+    transition: opacity .5s; }
+  .description-holder .title {
+    color: #fff;
+    font-family: "Avenir-Roman", sans-serif;
+    font-size: 6vw;
+    margin: 0px;
+    transition: font-size .3s; }
+
+.description-close-holder {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  width: 15vw;
+  height: 9vh; }
+
+.description-close {
+  bottom: 0px;
+  font-size: 10vw;
+  position: absolute;
+  margin: 0px 4vw 2vw 4vw;
+  right: 0px;
+  text-align: center; }
+  .description-close:active {
+    color: rgba(255, 255, 255, 0.7); }
+
+.description-arrow {
+  float: right;
+  display: none;
+  position: relative;
+  top: 1px; }
+
+html,
+body {
+  margin: 0;
+  padding: 0; }
+
 @font-face {
   font-family: "Avenir-Black";
   src: url("../fonts/AvenirLTStd-Black.otf"); }
@@ -22,22 +178,22 @@ body {
   display: none;
   height: 100%;
   opacity: .5;
+  overflow: hidden;
   position: absolute;
   left: -250px;
   z-index: -3; }
 
 .donut-text {
   font-family: Verdana, sans-serif;
-  font-size: .75em;
+  font-size: 3vw;
   pointer-events: none;
   text-anchor: middle;
   text-shadow: rgba(0, 0, 0, 0.5) 3px 3px 3px; }
 
 .industry-text {
   color: #fff;
-  font-size: 1.75em;
-  height: 34px;
-  padding: 5px 0px;
+  font-size: 4vh;
+  padding: .2vh 0px;
   margin: 0;
   opacity: 0;
   position: absolute;
@@ -48,10 +204,10 @@ body {
 
 .label {
   color: white;
-  font-size: 1.1em;
+  font-size: 2.5vh;
   margin: 0;
   opacity: 0;
-  padding: 5px 0px;
+  padding: .8vh 0px;
   position: absolute;
   text-align: center;
   width: 100%;
@@ -72,23 +228,21 @@ body {
   text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
   z-index: 5000; }
   .text-middle .percent-number {
-    font-size: 3.5em;
+    font-size: 13vw;
     text-align: center; }
   .text-middle .percent-text {
-    font-size: 1.1em;
+    font-size: 4vw;
     margin: 0;
     text-align: center; }
 
 #hidden-link {
   background-color: #666;
-  border-radius: 35px;
-  bottom: 3%;
+  border-radius: 50px;
   color: #fff;
-  font-size: 1em;
-  height: 49px;
+  font-size: 2.5vh;
   left: 30%;
   opacity: 0;
-  padding-top: 2px;
+  max-height: 50px;
   position: absolute;
   text-align: center;
   text-decoration: none;
@@ -96,308 +250,11 @@ body {
   transition: opacity .5s, background .5s;
   width: 40%;
   -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
-  z-index: 100; }
+  z-index: 100;
+  height: 10vw;
+  padding: .5vw 0% 3.5vw 0%;
+  bottom: 2.5%; }
   #hidden-link span {
-    font-size: 1.25em; }
-
-.help-text {
-  background: rgba(255, 255, 255, 0.9);
-  bottom: 0;
-  height: 0%;
-  overflow-y: scroll;
-  position: fixed;
-  transition: height 1s;
-  width: 100%; }
-
-.help-close {
-  height: 60px;
-  font-size: 300%;
-  position: fixed;
-  margin: 0px 10px 0px 0px;
-  right: 0px;
-  text-align: center;
-  width: 60px; }
-  .help-close:active {
-    color: rgba(100, 100, 100, 0.7); }
-
-.help-description {
-  font-size: 1.1em;
-  padding: 0% 5%;
-  margin: 0px; }
-  .help-description ol {
-    float: left; }
-  .help-description li {
-    margin-bottom: 15px;
-    width: 85%; }
-  .help-description img {
-    width: 50%;
-    margin: 0 auto;
-    display: block;
-    margin-bottom: 25px; }
-
-.help-title {
-  padding-left: 15px;
-  margin: 15px 0px 5px 0px; }
-
-.button {
-  background-color: #000;
-  border-radius: 100%;
-  bottom: calc(2.5%);
-  color: #fff;
-  left: calc(8%);
-  padding: calc(2%);
-  position: fixed;
-  width: calc(11%);
-  max-width: 50px;
-  z-index: 5; }
-  .button.help {
-    font-family: Avenir-Book;
-    font-size: 2.4em;
-    left: calc(77%);
-    line-height: 1.2;
-    text-align: center; }
-  .button#active {
-    background: rgba(0, 0, 0, 0.85); }
-
-@font-face {
-  font-family: "Avenir-Book";
-  src: url("../fonts/AvenirLTStd-Book.otf"); }
-.button {
-  background-color: #000;
-  border-radius: 100%;
-  bottom: calc(2.5%);
-  color: #fff;
-  left: calc(8%);
-  padding: calc(2%);
-  position: fixed;
-  width: calc(11%);
-  max-width: 50px;
-  z-index: 5; }
-  .button.description {
-    bottom: calc(50%);
-    left: calc(44%);
-    transition: bottom 1s, left 1s, height 1s, width 1s;
-    background-color: rgba(255, 255, 255, 0); }
-    .button.description svg {
-      transform: rotate(270deg);
-      transition: transform .5s; }
-      .button.description svg polyline {
-        stroke: #333;
-        stroke-width: 4px; }
-  .button.nav svg {
-    width: 90%;
-    height: 90%;
-    margin: 10% 6% 4% 5%; }
-  .button#active {
-    background: #333; }
-
-.description-holder {
-  background: #000;
-  color: #fff;
-  left: 0;
-  padding: 10px 15px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  transition: height 1s;
-  z-index: 1;
-  overflow: hidden; }
-  .description-holder .text {
-    color: #fff;
-    font-size: 1.4em;
-    line-height: 1.25;
-    margin: 0;
-    padding: 8px;
-    pointer-events: none;
-    text-align: justify;
-    text-indent: 1em;
-    transition: opacity .3s; }
-  .description-holder .title {
-    color: #fff;
-    font-family: "Avenir-Black", sans-serif;
-    font-size: 2em;
-    margin: 5px 0px;
-    transition: font-size .3s; }
-
-.hidden.description-holder .title {
-  font-family: "Avenir-Roman", sans-serif;
-  font-size: 1.3em; }
-
-.description-close {
-  bottom: 0px;
-  font-size: 300%;
-  height: 60px;
-  position: absolute;
-  margin: 0px 10px 0px 0px;
-  right: 0px;
-  text-align: center;
-  width: 60px; }
-  .description-close:active {
-    color: rgba(255, 255, 255, 0.7); }
-
-/**
- * Fix #hidden-link height on short devices by adjusting padding
- */
-/*
-
-SHOULD BE IN mediaQ_donut.js
-
-@media screen
-and (max-device-height: 500px)
-and (-webkit-min-device-pixel-ratio: 2) {
-  a#hidden-link {
-    padding: 2% 2% 0%;
-  }
-}
-*/
-/**
- * iPad sized or similar tablet. Makes text and padding on elements greater
- */
-@media screen and (min-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.top {
-    padding: 10px 30px; }
-    div.top .title {
-      font-size: 3em; }
-    div.top p.directions {
-      font-size: 2em;
-      line-height: 1.5em;
-      margin: 25px 0px; }
-
-  div.hidden.top .title {
-    font-size: 2em;
-    margin: 5px 15px; }
-  div.hidden.button.description {
-    bottom: 93.75%;
-    left: 85%; }
-    div.hidden.button.description svg polyline {
-      stroke-width: 7px; } }
-/**
- * Fix for title margin for iPhone 6+ and similar width devices
- */
-@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
-  div.hidden.top .title {
-    font-size: 1.4em; }
-  div.hidden.button.description {
-    bottom: 93.25%; } }
-/**
- * Fixes initial description dimensions and text attributes on iPhone 5
- */
-@media screen and (max-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.top .directions {
-    font-size: 1.15em; }
-  div.top .title {
-    font-size: 2em; }
-
-  div.hidden.top {
-    padding: 12px 15px 3px; }
-    div.hidden.top .title {
-      font-size: 1.1em;
-      margin: 0px; } }
-/**
- * Fixes button placement on iPhone 4
- */
-@media screen and (max-device-width: 320px) and (max-device-height: 530px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.top .title {
-    font-size: 1.3em; }
-
-  div.hidden.top {
-    padding: 5px 15px 1px; }
-  div.hidden.button.description {
-    bottom: 93%; } }
-/**
- * iPad sized or similar tablet
- */
-@media screen and (min-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
-  div.button.help {
-    font-size: 3.5em;
-    line-height: 1.0;
-    left: calc(92% - 80px); } }
-/**
- * Fix for title margin for iPHone 6+ and similar width devices
- */
-@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
-  div.button.help {
-    font-size: 2.65em; } }
-/**
- * Fix #hidden-link height on short devices by adjusting padding
- */
-/*
-
-SHOULD BE IN mediaQ_donut.js
-
-@media screen
-and (max-device-height: 500px)
-and (-webkit-min-device-pixel-ratio: 2) {
-  a#hidden-link {
-    padding: 2% 2% 0%;
-  }
-}
-*/
-/**
- * iPad sized or similar tablet. Makes text and padding on elements greater
- */
-@media screen and (min-device-width: 760px) and (-webkit-min-device-pixel-ratio: 2) {
-  .donut-text {
-    font-size: 1.1em; }
-
-  #hidden-link span {
-    font-size: 1.6em; }
-
-  #hidden-link {
-    height: 62px;
-    font-size: 1.15em; }
-
-  .text-middle .percent-number {
-    font-size: 5.5em; }
-
-  .text-middle .percent-text {
-    font-size: 1.75em; }
-
-  .label {
-    font-size: 1.6em;
-    padding: 6px 0px; }
-
-  .industry-text {
-    font-size: 2.5em;
-    height: 51px; } }
-/**
- * Fix for title margin for iPhone 6+ and similar width devices
- */
-@media screen and (max-device-width: 375px) and (-webkit-min-device-pixel-ratio: 2) {
-  #hidden-link span {
-    font-size: 1em; }
-
-  #hidden-link {
-    height: 43px;
-    bottom: 2.5%; }
-
-  .text-middle .percent-number {
-    font-size: 3em; }
-
-  .text-middle .percent-text {
-    font-size: .925em; } }
-/**
- * Fixes initial description dimensions and text attributes on iPhone 5
- */
-@media screen and (max-device-width: 320px) and (-webkit-min-device-pixel-ratio: 2) {
-  .donut-text {
-    font-size: .65em;
-    text-shadow: rgba(0, 0, 0, 0.5) 2px 2px 3px; } }
-/**
- * Fixes label text size on drop down industry text for iphone4
- */
-@media screen and (max-device-width: 320px) and (max-device-height: 530px) and (-webkit-min-device-pixel-ratio: 2) {
-  .label {
-    font-size: .925em;
-    padding: 3px 0px; }
-
-  .industry-text {
-    font-size: 1.35em;
-    height: 25px;
-    padding: 2px 0px; } }
-html,
-body {
-  margin: 0;
-  padding: 0; }
+    font-size: 3vh; }
 
 /*# sourceMappingURL=donut.css.map */

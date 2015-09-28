@@ -1,5 +1,5 @@
 $top-background-color:#000;
-$description-top-font: "Avenir-Black", sans-serif;
+$description-top-font: "Avenir-Roman", sans-serif;
 $directions-text-color: #fff;
 $directions-title-color: #fff;
 
@@ -7,7 +7,7 @@ $directions-title-color: #fff;
   background: $top-background-color;
   color: $directions-title-color;
   left: 0;
-  padding: 10px 15px;
+  padding: 1.5vh 4vw;
   position: absolute;
   right: 0;
   top: 0;
@@ -16,22 +16,21 @@ $directions-title-color: #fff;
   overflow: hidden;
 
   .text {
-    color: $directions-text-color;
-    font-size: 1.4em;
-    line-height: 1.25;
-    margin: 0;
+    color: #fff;
+    font-size: 4.5vw;
+    line-height: 1.75;
+    margin-top: 3vw;
     padding: 8px;
     pointer-events: none;
-    text-align: justify;
-    text-indent: 1em;
-    transition: opacity .3s;
+    text-indent: 4.5vw;
+    transition: opacity .5s;
   }
 
   .title {
     color: $directions-title-color;
     font-family: $description-top-font;
-    font-size: 2em;
-    margin: 5px 0px;
+    font-size: 6vw;
+    margin: 0px;
     transition: font-size .3s;
   }
 }
@@ -53,23 +52,41 @@ $directions-title-color: #fff;
     }
 
     .title {
-      font-family: "Avenir-Roman", sans-serif;
-      font-size: 1.3em;
+      //font-family: "Avenir-Roman", sans-serif;
+      //font-size: 1.3em;
     }
   }
 }
 
+.description-close-holder {
+  position: absolute;
+  right: 0px;
+  bottom:0px;
+      width: 15vw;
+    height: 9vh;
+}
+
 .description-close {
   bottom: 0px;
-  font-size: 300%;
-  height: 60px;
+  font-size: 10vw;
+  //height: 60px;
   position: absolute;
-  margin: 0px 10px 0px 0px;
+  margin: 0px 4vw 2vw 4vw;
   right: 0px;
+  //bottom: 3vw;
   text-align: center;
-  width: 60px;
+  //transition: opacity .25s;
+  //width: 60px;
 
   &:active {
     color: rgba(255, 255, 255, 0.7);
   }
+}
+
+.description-arrow {
+  float: right;
+  display: none;
+  position: relative;
+  top: 1px;
+  //transition: opacity .25s;
 }

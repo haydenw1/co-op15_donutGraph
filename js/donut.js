@@ -32,6 +32,9 @@ var donut = {
 
   setUp: function(){
     $( document ).ready(function(){
+      //rdb.emitClientInfo();
+
+
       var dM = donut.meas;
 
       dM.width = document.documentElement.clientWidth,
@@ -41,8 +44,10 @@ var donut = {
       dM.circleCY = dM.height / 2.6;
       dM.circleCX = dM.width / 2;
 
-      dM.outerRadius = donut.calculateRadii("outerRadius", this);
-      dM.innerRadius = donut.calculateRadii("innerRadius", this);
+      dM.outerRadius = donut.calculateRadii("outerRadius");
+      dM.innerRadius = donut.calculateRadii("innerRadius");
+      console.log(dM.outerRadius);
+      console.log(dM.innerRadius);
 
       dM.circleOutsideEdge = dM.circleCY + dM.outerRadius;
 
@@ -53,7 +58,7 @@ var donut = {
       description.setUp();
       help.setUp(donut);
 
-      donut.makeElements();
+      donut.positionElements();
       donut.makeTools();
       donut.makeVis();
       donut.addListeners();
@@ -63,9 +68,10 @@ var donut = {
 
 
 
-  calculateRadii: function(radius, thi){
-    var ratio = donut.meas.width / donut.meas.height;
+  calculateRadii: function(radius){
+    //var ratio = donut.meas.width / donut.meas.height;
     //console.log(donut.meas.width);
+    console.log(donut.meas.width < 600);
     if(donut.meas.width < 600){
       if(radius == "outerRadius"){
         return donut.meas.width / 2 - (donut.meas.width / 25);
@@ -83,7 +89,7 @@ var donut = {
 
 
 
-  makeElements: function(){
+  positionElements: function(){
     var dE = donut.elem;
     var dM = donut.meas;
 
@@ -96,27 +102,29 @@ var donut = {
     dE.percentNumber = document.getElementsByClassName("percent-number")[0];//document.createElement("p");
     dE.percentText = document.getElementsByClassName("percent-text")[0];//document.createElement("p");
 
-    document.body.appendChild(dE.industry);
-    dE.divMiddle.appendChild(dE.percentNumber);
-    dE.divMiddle.appendChild(dE.percentText);
 
-    console.log(dE.divMiddle);
-    console.log(dE.divMiddle.clientHeight);
-    dM.divMiddleHeight = dE.divMiddle.clientHeight;
-    dM.divMiddleWidth = dE.divMiddle.clientWidth;
     dM.industryHeight = dE.industry.clientHeight;
     dM.industryLabelUpHeight = dE.industryLabelUp.clientHeight;
     dM.industryLabelDownHeight = dE.industryLabelDown.clientHeight;
 
-    console.log(dM.industryHeight);
+    document.body.appendChild(dE.industry);
+    dE.divMiddle.appendChild(dE.percentNumber);
+    dE.divMiddle.appendChild(dE.percentText);
+
     dE.industryLabelBack.style.height = dM.industryHeight + "px";
     dE.industryLabelBack.style.top = dM.industryEndLocation + "px";
-    console.log(dM.industryLabelDownHeight);
+
+    if (dM.width > 600) {
+      dE.percentNumber.style.fontSize = "10vw";
+      dE.percentText.style.fontSize = "3.5vw";
+    }
+
+    dM.divMiddleHeight = dE.divMiddle.clientHeight; //*****
+    dM.divMiddleWidth = dE.divMiddle.clientWidth;  //******
+    dE.divMiddle.style.top = dM.circleCY - dM.divMiddleHeight/2 + "px"; //****
+    dE.divMiddle.style.left = dM.circleCX - dM.divMiddleWidth/2 + "px"; //****
 
     dM.industryStartLocation = dM.circleCY - (dM.divMiddleHeight/2) - dM.industryHeight;  //define industry start location after finding industryHeight and divMiddleHeight
-
-    dE.divMiddle.style.top = dM.circleCY - dM.divMiddleHeight/2 + "px";
-    dE.divMiddle.style.left = dM.circleCX - dM.divMiddleWidth/2 + "px";
 
     dM.industryLabelUpStartLocation = dM.industryEndLocation;
     dM.industryLabelDownStartLocation = dM.industryEndLocation + dM.industryHeight - dM.industryLabelDownHeight;
@@ -178,7 +186,9 @@ var donut = {
 
     g.append("path")
       .attr("d", donut.d3tools.arc)
-      .style("fill", function(d,i) { return donut.d3tools.color(i); })
+      .style("fill", function(d,i) {
+        return donut.d3tools.color(i);
+      })
       .on("touchstart", function(d) {
         if (donut.current.active && donut.current.touched === this) {
           donut.leavePath(d, this);
@@ -190,16 +200,25 @@ var donut = {
           donut.touchPath(d, this);
         }
       })
-      .on("touchstart.cancel", function() { d3.event.stopPropagation(); });
+      .on("touchstart.cancel", function() {
+        d3.event.stopPropagation();
+      });
 
     g.append("text")
-      .attr("transform", function(d) { return "translate(" + donut.d3tools.arc.centroid(d) + ")"; })
+      .attr("transform", function(d) {
+        return "translate(" + donut.d3tools.arc.centroid(d) + ")";
+      })
       .attr("dy", ".35em")
       .attr("class","donut-text")
-      .style("font-size", function(d){
-        if(d.data.industry === "Software" || d.data.industry === "Consumer Products"){
-          return donut.specialSizing();
-          //return ".6em";
+      .style("font-size", function(d) {
+        if (d.data.industry === "Software" || d.data.industry === "Consumer Products") {
+          if (donut.meas.width < 600) {
+            return "2.5vw";
+          } else {
+            return  ".95em"; //static, because the inner and outer donut radii measurements are now static (see [calculateRadii])
+          }
+        } else if (donut.meas.width > 600) {
+          return "2.5vw";
         }
       })
       .attr("fill", "white")
@@ -231,9 +250,6 @@ var donut = {
 
 
   touchPath: function(d, touched) {
-    console.log(d.data.industry);
-    console.log(touched);
-    console.log(donut.current.active);
 
     if (donut.current.active) {
       donut.leavePath(donut.current.d,donut.current.touched);
@@ -249,6 +265,9 @@ var donut = {
       donut.elem.industryLabelUp.innerHTML = "...find a co-op in the";
       donut.elem.industryLabelBack.style.background = "rgba(0, 0, 0, 0.75)";
     }
+
+    donut.elem.centerCircle
+        .attr("fill","rgba(255,255,255,0)");
 
     //if(donut.open){
     //  donut.leavePath(donut.data, donut.open);
@@ -309,7 +328,7 @@ var donut = {
 
 
     donut.elem.centerCircle
-      .transition().duration(700)
+      .transition().duration(1500)
         .attr("fill","rgba(255,255,255,.80)");
 
     d3.select(donut.elem.industry)
@@ -396,6 +415,7 @@ var donut = {
       .transition().duration(700)
         .style("opacity", 0);
 
+    console.log(donut.meas.industryStartLocation);
     d3.select(".industry-text")
       .transition().duration(750)
         .style("top", donut.meas.industryStartLocation + "px")
@@ -426,13 +446,11 @@ var donut = {
     //donut.open = false;
   },
 
-
-
   stopDefAction: function(evt){
     evt.preventDefault();
   },
 
-
+/*
   specialSizing: function(){
     console.log(donut.meas.width);
     if(donut.meas.width > 750){
@@ -449,7 +467,7 @@ var donut = {
 
     return ".55em";
   },
-
+*/
 
 
   //main data object that holds industry names, percentage, and if we have article of not (also unused count property as of right now)
@@ -458,7 +476,7 @@ var donut = {
       "industry":"Print",
       "count":53,
       "percent":37,
-      "article": "http://google.com",
+      "article": "navto://coopreport_darwin",
       "image": "images/print.jpg"
     },
 
