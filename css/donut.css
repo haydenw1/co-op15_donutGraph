@@ -17,30 +17,33 @@
 .help-close {
   font-size: 10vw;
   position: absolute;
-  margin: 0px 4vw 2vw 4vw;
+  margin: 3vh 4vw 2vw 4vw;
   right: 0px;
   text-align: center;
-  display: none; }
+  line-height: 4vh; }
 
 .help-description {
   font-size: 4.5vw;
   padding: 0% 5%;
   margin: 0px; }
   .help-description ol {
-    float: left; }
+    float: left;
+    margin-left: 8vw; }
   .help-description li {
     margin-bottom: 15px;
-    width: 85%; }
+    width: 85%;
+    line-height: 1.5; }
   .help-description img {
-    width: 50%;
-    margin: 0 auto;
+    width: 75%;
+    max-width: 400px;
     display: block;
-    margin-bottom: 25px; }
+    margin: 5% 0% 10% 0%; }
 
 .help-title {
   padding-left: 15px;
   font-size: 6vw;
-  margin: 15px 0px 5px 0px; }
+  margin: 0px;
+  padding: 3vh 4vw; }
 
 .button {
   background-color: #000;
@@ -65,15 +68,21 @@
 /**
  * iPad sized or similar tablet
  */
-@media screen and (min-device-width: 599px) and (-webkit-min-device-pixel-ratio: 2) {
+@media screen and (min-device-width: 599px) {
   div.button.help {
     font-size: 3.5em;
     line-height: 1.0;
-    left: calc(92% - 80px); } }
+    left: calc(92% - 80px); }
+
+  .help-description li {
+    font-size: 3.5vw; }
+
+  .help-title {
+    font-size: 5vw; } }
 /**
  * Fix for title margin for iPHone 6+ and similar width devices
  */
-@media screen and (max-device-width: 415px) and (-webkit-min-device-pixel-ratio: 3) {
+@media screen and (max-device-width: 415px) {
   div.button.help {
     font-size: 2.65em;
     line-height: 1.2; } }
@@ -149,10 +158,44 @@
   position: relative;
   top: 1px; }
 
-html,
-body {
+@media screen and (min-width: 599px) {
+  .description-holder .text {
+    font-size: 3.5vw; }
+  .description-holder .title {
+    font-size: 5vw; } }
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
   margin: 0;
-  padding: 0; }
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
 
 @font-face {
   font-family: "Avenir-Black";

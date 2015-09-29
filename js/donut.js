@@ -16,15 +16,15 @@ var donut = {
   helpDescription: [
     {
       "text" : "Touch a colored section of the 'donut' graph",
-      "image" : "images/test.gif"
+      "image" : "images/donut1.jpg"
     },
     {
       "text" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
-      "image" : "images/back_e84a0c.png"
+      "image" : "images/donut3.jpg"
     },
     {
       "text" : "If there is an industry related student co-op story, click the link that appears at the bottom of the screen to view the story",
-      "image" : "images/help_white.png"
+      "image" : "images/donut4.jpg"
     }
   ],
 

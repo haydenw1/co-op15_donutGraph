@@ -23,11 +23,10 @@ $background-color: #000;
 .help-close {
     font-size: 10vw;
     position: absolute;
-    margin: 0px 4vw 2vw 4vw;
+    margin: 3vh 4vw 2vw 4vw;
     right: 0px;
     text-align: center;
-    display: none;
-
+    line-height: 4vh;
     //&:active {
      // color: rgba(100, 100, 100, 0.7);
     //}
@@ -40,29 +39,31 @@ $background-color: #000;
 
   ol {
     float: left;
+    margin-left: 8vw;
   }
 
   li {
     margin-bottom: 15px;
-        //float: left;
     width: 85%;
-    //clear: left;
+    line-height: 1.5;
+
   }
 
   img {
-    width: 50%;
-    margin: 0 auto;
+    width: 75%;
+    max-width: 400px;
     //clear: right;
     //float: right;
     display: block;
-    margin-bottom: 25px;
+    margin: 5% 0% 10% 0%;
   }
 }
 
 .help-title {
   padding-left: 15px;
   font-size: 6vw;
-  margin: 15px 0px 5px 0px;
+  margin: 0px;
+  padding: 3vh 4vw;
 }
 
 
@@ -100,13 +101,22 @@ $background-color: #000;
  * iPad sized or similar tablet
  */
 @media screen
-and (min-device-width: 599px)
-and (-webkit-min-device-pixel-ratio: 2) {
+and (min-device-width: 599px) {
 
   div.button.help {
     font-size: 3.5em;
     line-height: 1.0;
     left: calc(92% - 80px);
+  }
+
+  .help-description {
+    li {
+      font-size: 3.5vw;
+    }
+  }
+
+  .help-title {
+    font-size: 5vw;
   }
 }
 
@@ -116,8 +126,7 @@ and (-webkit-min-device-pixel-ratio: 2) {
  * Fix for title margin for iPHone 6+ and similar width devices
  */
 @media screen
-and (max-device-width: 415px)
-and (-webkit-min-device-pixel-ratio: 3) {
+and (max-device-width: 415px) {
 
   div.button.help {
     font-size: 2.65em;

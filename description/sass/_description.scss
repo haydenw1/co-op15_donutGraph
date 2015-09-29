@@ -90,3 +90,16 @@ $directions-title-color: #fff;
   top: 1px;
   //transition: opacity .25s;
 }
+
+@media screen and (min-width: 599px) {
+  .description-holder {
+
+    .text {
+      font-size: 3.5vw;
+    }
+
+    .title {
+      font-size: 5vw;
+    }
+  }
+}
