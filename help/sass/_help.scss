@@ -1,6 +1,11 @@
 $background-color: #000;
 //$border-color: #fff;
 
+.help-nav-arrow {
+  font-size: 6vw;
+  padding: 1% 6%;
+}
+
 .help-text {
   background: $background-color;//rgba(255, 255, 255, .9);
   color: white;
@@ -23,7 +28,7 @@ $background-color: #000;
 .help-close {
     font-size: 10vw;
     position: absolute;
-    margin: 3vh 4vw 2vw 4vw;
+    margin: 2vh 4vw 2vw 4vw;
     right: 0px;
     text-align: center;
     line-height: 4vh;
@@ -34,28 +39,26 @@ $background-color: #000;
 
 .help-description {
   font-size: 4.5vw;
-  padding: 0% 5%;
+  padding: 0% 8% 20vw;
   margin: 0px;
 
   ol {
-    float: left;
-    margin-left: 8vw;
+    width: 70%;
+    margin: 0 auto;
   }
 
   li {
     margin-bottom: 15px;
-    width: 85%;
+    //width: 85%;
     line-height: 1.5;
 
   }
 
   img {
-    width: 75%;
+    width: 100%;
     max-width: 400px;
-    //clear: right;
-    //float: right;
     display: block;
-    margin: 5% 0% 10% 0%;
+    margin: 10% 0% 15%;
   }
 }
 
@@ -63,7 +66,7 @@ $background-color: #000;
   padding-left: 15px;
   font-size: 6vw;
   margin: 0px;
-  padding: 3vh 4vw;
+  padding: 2vh 4vw;
 }
 
 
@@ -110,6 +113,8 @@ and (min-device-width: 599px) {
   }
 
   .help-description {
+    padding-bottom: calc(5% + 80px);
+
     li {
       font-size: 3.5vw;
     }
@@ -117,6 +122,15 @@ and (min-device-width: 599px) {
 
   .help-title {
     font-size: 5vw;
+  }
+
+  .help-close {
+    font-size: 8vw;
+    margin: 2vh 4vw 2vw 4vw;
+  }
+
+  .help-nav-arrow {
+    padding: 1% 4%;
   }
 }
 
@@ -126,10 +140,10 @@ and (min-device-width: 599px) {
  * Fix for title margin for iPHone 6+ and similar width devices
  */
 @media screen
-and (max-device-width: 415px) {
+and (max-device-width: 320px) {
 
   div.button.help {
-    font-size: 2.65em;
-    line-height: 1.2;
+    font-size: 2.5em;
+    line-height: 1;
   }
 }

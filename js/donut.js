@@ -16,7 +16,7 @@ var donut = {
   helpDescription: [
     {
       "text" : "Touch a colored section of the 'donut' graph",
-      "image" : "images/donut1.jpg"
+      "image" : "images/donut1_finger2.jpg"
     },
     {
       "text" : "View industry name and percentage of SMS students that have had a co-op in that industry within the last 5 years",
@@ -28,7 +28,8 @@ var donut = {
     }
   ],
 
-  //open: false,
+  //property to distinguish whether to users to phone or tablet articles if cross linking to another article within the app [defaults to phone]
+  articles: "phone",
 
   setUp: function(){
     $( document ).ready(function(){
@@ -62,6 +63,7 @@ var donut = {
       donut.makeTools();
       donut.makeVis();
       donut.addListeners();
+      donut.phoneOrTabletArticles();
       buttons.createButtons();
     });
   },
@@ -226,7 +228,7 @@ var donut = {
     },
 
 
-  addListeners: function(){
+  addListeners: function() {
     d3.select("body")
       .on ("touchstart", function(d) {
         if (donut.current.active) {
@@ -247,6 +249,23 @@ var donut = {
        // donut.leavePath(d, this);
       //});
   },
+
+
+
+  phoneOrTabletArticles: function() {
+    var width = donut.meas.width;
+
+    if (width >= 600) {
+      donut.articles = "tablet";
+    }
+    console.log(donut.articles);
+  },
+
+
+
+
+
+
 
 
   touchPath: function(d, touched) {
@@ -375,7 +394,9 @@ var donut = {
     if(d.data.article){
       var dehL = donut.elem.hiddenLink;  //holder var to make repeated element reference more readable
 
-      dehL.setAttribute("href", d.data.article);
+      //sets the href of link to tablet or phone article depending on device determined in [phoneOrTabletArticles()]
+      dehL.setAttribute("href", d.data.article[donut.articles]);
+
       dehL.style.opacity = 1;
       dehL.style.background = touched.style.fill;
       dehL.removeEventListener("click", donut.stopDefAction);
@@ -476,8 +497,11 @@ var donut = {
       "industry":"Print",
       "count":53,
       "percent":37,
-      "article": "navto://coopreport_darwin",
-      "image": "images/print.jpg"
+      "image": "images/print.jpg",
+      article: {
+        "phone": "navto://coopreport_darwin",
+        "tablet": "navto://darwilltablet"
+      }
     },
 
     {

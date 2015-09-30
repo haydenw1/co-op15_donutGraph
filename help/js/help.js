@@ -86,10 +86,9 @@ var help = {
 
 
   /**
-   * addElements
-   *   Creates div to hold all help explanations ('help-text') and a close button.
-   *   Creating here and adding to the DOM allows 'help.js' to be properly applied
-   *   to many different visualization without editing the 'index.html' of each vis.
+   * Creates div to hold all help explanations ('help-text') and a close button.
+   * Creating here and adding to the DOM allows 'help.js' to be properly applied
+   * to many different visualization without editing the 'index.html' of each vis.
    */
   addElements: function(){
     var helpText = document.createElement("div");
@@ -147,37 +146,37 @@ var help = {
    */
   fillText: function() {
     var vis = help.vis;
-    console.log(vis.helpDescription);
     var title = document.createElement("h2");
+    var description = document.createElement("p")
+    var list = document.createElement("ol");
+    var navMessage = document.createElement("p");
+    var navArrow = document.createElement("p");
+
     title.className = "help-title";
     title.innerHTML = "Help";
-
-    var description = document.createElement("p")
     description.className = "help-description";
+    navMessage.className = "help-nav-message";
+    navArrow.className = "help-nav-arrow";
 
-    var list = document.createElement("ol");
-
-    //for( var i = 0; i < vis.helpDescription.length; i++ ) {
     for (var i in vis.helpDescription) {
-      console.log(vis.helpDescription[i].text);
-      console.log(vis.helpDescription[i].image);
-
       var text = document.createElement("li");
-      text.innerHTML = vis.helpDescription[i].text;
-
       var image = document.createElement("img");
+
+      text.innerHTML = vis.helpDescription[i].text;
       image.setAttribute("src",vis.helpDescription[i].image);
 
       list.appendChild(text);
       list.appendChild(image);
     }
 
-    description.appendChild(list);
+    navMessage.innerHTML = "Click here to display app nav bar";
+    navArrow.innerHTML = "&#8681;";
 
-    console.log(help);
-    console.log(help.elem.helpDiv);
 
     help.elem.helpDiv.appendChild(title);
+    description.appendChild(list);
+    description.appendChild(navMessage);
+    description.appendChild(navArrow);
     help.elem.helpDiv.appendChild(description);
   },
 
